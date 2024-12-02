@@ -1,0 +1,19 @@
+.carrossel {
+    width: 100%;
+    height: 100vh;
+}
+
+.carouselWrapper {
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .carrossel {
+        display: none;
+    }
+}
+
+.testeImg {
+    width: 100%;
+    height: 100%;
+}

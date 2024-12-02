@@ -1,0 +1,110 @@
+import styles from "./page.module.css";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { useState } from "react";
+
+import api from "@/services/api";
+
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
+
+export default function LoginUsu() {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+    const router = useRouter();
+
+    const alternarVisibilidadeSenha = () => {
+        setShowPassword(!showPassword);
+    };
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        logar();
+    }
+
+    async function logar() {
+        try {
+            const dados = {
+                usu_email: email,
+                usu_senha: senha
+            };
+
+            const response = await api.post('/login', dados);
+
+            if (response.data.sucesso) {
+                const usuario = response.data.dados;
+                const objLogado = {
+                    "id": usuario.usu_id,
+                    "nome": usuario.usu_nome,
+                    "acesso": usuario.usu_acesso
+                };
+
+                localStorage.clear();
+                localStorage.setItem('user', JSON.stringify(objLogado));
+
+                Cookies.set('token', usuario.usu_id, { expires: 7, path: '/' });
+
+                if (usuario.usu_acesso === 1) {
+                    router.push('/telas/admin');
+                } else {
+                    router.push('/telas/usuario');
+                }
+            }
+        } catch (error) {
+            if (error.response) {
+                const status = error.response.status;
+                const tipoErro = error.response.data.tipoErro;
+
+                if (status === 403 && tipoErro === 'inativo') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Acesso não permitido!',
+                        text: 'Entre em contato com um administrador',
+                        confirmButtonText: 'OK',
+                        iconColor: '#FFA500',
+                        confirmButtonColor: '#FFA500',
+                    });
+                    setEmail('');
+                    setSenha('');
+                }
+                else if (status === 403 && tipoErro === 'credenciais') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Email e/ou senha inválidos.',
+                        confirmButtonText: 'OK',
+                        iconColor: '#d33',
+                        confirmButtonColor: '#d33',
+                    });
+                    setEmail('');
+                    setSenha('');
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Ocorreu um erro ao tentar realizar o login.',
+                        confirmButtonText: 'OK',
+                        iconColor: '#d33',
+                        confirmButtonColor: '#d33',
+                    });
+                    setEmail('');
+                    setSenha('');
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Ocorreu um erro ao tentar realizar o login.',
+                    confirmButtonText: 'OK',
+                    iconColor: '#d33',
+                    confirmButtonColor: '#d33',
+                });
+                setEmail('');
+                setSenha('');
+            }
+        }
+    };

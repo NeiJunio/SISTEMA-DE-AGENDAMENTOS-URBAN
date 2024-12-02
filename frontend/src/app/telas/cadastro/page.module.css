@@ -1,0 +1,493 @@
+.input {
+    background-color: #ff0000;
+    padding: 0;
+}
+
+.main {
+    color: #fff;
+    background-color: #1c1c1c;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.container {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.image {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-right: solid #ff9d00;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
+}
+
+.image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.boxCadastro {
+    width: 100%;
+    height: 90%;
+    background-color: #2c2c2c;
+    padding: 1rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoImg {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.imgLogo {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.titleCadastro {
+    font-size: 2.5rem;
+    color: #ff9d00;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.formCadastro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.doubleInputGroup {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.error {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: #ff4d4d;
+    font-size: 1rem;
+    font-weight: 300;
+    visibility: hidden;
+    text-wrap: wrap;
+}
+
+.inputGroup.errorActive .error {
+    visibility: visible;
+}
+
+.inputCadastro.errorActive {
+    border-color: #ff4d4d;
+    box-shadow: 0 0 6px rgba(255, 77, 77, 0.7);
+}
+
+.labelCadastro {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.inputCadastro {
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.inputCadastro:focus {
+    border-color: #ff9d00;
+    box-shadow: 0 0 6px rgba(255, 157, 0, 0.7);
+    outline: none;
+}
+
+.cadastroButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.cadastroButton {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+    background-color: #ff9d00;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cadastroButton:hover {
+    background-color: #e68900;
+}
+
+.checkboxContainer {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
+.checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #ff9d00;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    background-color: #2c2c2c;
+    transition: background-color 0.1s, border-color 0.1s;
+}
+
+.checkbox:checked {
+    background-color: #ff9d00;
+    border-color: #ff9d00;
+}
+
+.checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkboxLabel {
+    font-size: 1.2rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.loginLink {
+    margin-top: 1.5rem;
+    color: #fff;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.link {
+    color: #ff9d00;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.linkCad {
+    text-decoration: none;
+    color: #fff;
+
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.inputCadastro[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: #ff9d00;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/*------------------------------*/
+.error_message_simples {
+    color: #fa4545;
+    font-size: 0.9em;
+}
+
+
+/* Estilo da mensagem de erro */
+.error_message {
+    color: #e64843;
+    font-size: 0.9em;
+    background-color: #ffd6d9;
+    border: 1px solid #e64843;
+    padding: 8px 12px;
+    border-radius: 5px;
+    line-height: 1.4;
+    max-width: 400px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 105%;
+    left: 0;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+@media (max-width: 1500px) {
+    .checkboxContainer {
+        width: 37.5%;
+        gap: .3rem;
+    }
+}
+
+@media (max-width: 1220px) {
+    .container {
+        width: 80%;
+    }
+
+    .image {
+        width: 50%;
+    }
+
+    .boxCadastro {
+        padding: 2rem;
+    }
+
+    .logoImg {
+        width: 80%;
+    }
+
+    .titleCadastro {
+        font-size: 2rem;
+    }
+
+    .inputCadastro {
+        font-size: 1rem;
+        padding: 0.95rem;
+    }
+
+    .cadastroButton {
+        font-size: 1.2rem;
+        padding: 0.8rem;
+    }
+
+    .checkboxContainer {
+        width: 39%;
+    }
+
+    .checkboxLabel {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 997px) {
+    .container {
+        width: 90%;
+    }
+
+    .image {
+        display: none;
+    }
+
+    .boxCadastro {
+        width: 100%;
+        padding: 1.5rem;
+        background-color: transparent;
+    }
+
+    .logoImg {
+        width: 50%;
+    }
+
+    .titleCadastro {
+        font-size: 2rem;
+    }
+
+    .inputCadastro {
+        font-size: 1.1rem;
+        padding: 0.85rem;
+    }
+
+    .cadastroButton {
+        font-size: 1.1rem;
+        padding: 0.7rem;
+    }
+
+    .checkboxContainer {
+        width: 30%;
+    }
+
+    .checkboxLabel {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 780px) {
+    .main {
+        color: #fff;
+        background-color: #1c1c1c;
+        justify-content: center;
+        align-items: center;
+        height: 130vh;
+        width: 100%;
+        display: flex;
+    }
+
+    .formCadastro {
+        padding: 2rem;
+    }
+
+    .inputCadastro {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .doubleInputGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .checkboxContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .titleCadastro {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+
+    .image {
+        display: none;
+    }
+
+    .boxCadastro {
+        width: 100%;
+        padding: .5rem 1rem;
+        height: 95%;
+    }
+
+    .logoImg {
+        width: 55%;
+    }
+
+    .titleCadastro {
+        font-size: 2.2rem;
+    }
+
+    .inputCadastro {
+        font-size: 0.95rem;
+        padding: 0.7rem;
+    }
+
+    .cadastroButton {
+        font-size: 1.2rem;
+        padding: 0.8rem;
+    }
+
+    .checkboxLabel {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .logoImg {
+        width: 70%;
+    }
+
+    .main {
+        height: 105vh;
+    }
+
+    .boxCadastro {
+        padding: 2rem 1rem;
+        height: auto;
+    }
+
+    .titleCadastro {
+        font-size: 2.5rem;
+    }
+
+    .inputCadastro {
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    .cadastroButton {
+        font-size: 1.2rem;
+        padding: .8rem;
+    }
+
+    .checkboxLabel {
+        font-size: 0.9rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .logoImg {
+        width: 80%;
+    }
+}
+
+@media (max-width: 470px) {
+    .main {
+        height: 120vh;
+    }
+
+    .boxCadastro {
+        padding: 1rem;
+        height: auto;
+    }
+
+    .logoImg {
+        width: 80%;
+    }
+}

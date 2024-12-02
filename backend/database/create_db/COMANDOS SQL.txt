@@ -1,0 +1,85 @@
+--> Selecione todos os campos de uma tabela
+	select * from nome_tabela
+
+
+--> Selecione apenas as colunas de determinada tabela
+	select nome_coluna,nome_coluna from nome tabela
+
+
+--> Selecione uma coluna de uma determinada tabela mediante uma condição
+	select nome_coluna from nome_tabela where condicao (ex: preco >5)
+
+
+--> Selecione todos os campos cujo título comece com a letra ‘o’
+	select * from nome_tabela where nome_coluna like 'o%'
+
+
+--> Selecione todos os campos cujo título termina com a letra ‘o’
+	select * from nome_tabela where nome_coluna like '%o'
+
+
+--> Selecione todos os campos ad tabela e ordena que uma coluna se organize em letra decrescente
+	select * from nome_tabela
+	order by nome_coluna desc
+
+
+--> Renomear tabela
+	sp_rename 'nome_atual','novo_nome'
+
+
+--> Adicionar coluna em uma tabela, com nome e tipo de dado
+	alter table nome_tabela add nome_nova_coluna tipo_dado;
+
+
+--> Alterar o tipo de dados de uma coluna em determinada tabela
+	alter table nome_tabela alter column nome_coluna novo_tipo_dado;
+
+
+--> Alterar o valor de um campo da tabela
+	update nome_tabela
+	set nome_coluna=novo_valor_do_campo
+	where nome_coluna = valor_coluna; (essa é a condição)
+
+	ex:
+	update fornecedor
+	set estado='RJ'
+	where cidade='Rio de Janeiro';
+	(altera o valor da coluna estado, cuja cidade seja Rio de Janeiro)
+
+
+--> Alterar o nome de uma coluna
+	sp_rename 'nome_tabela.nome_coluna', 'novo_nome_coluna', 'column';
+
+
+--> Apagar um campo da tabela
+	alter table nome_coluna drop column nome_coluna;
+
+
+--> Apagar todos os dados de uma linha com determinada condição
+	delete from nome_tabela where condição;
+
+
+--> Apagar dados de várias linhas com determinada condição
+	delete from nome_tabela where condição_comum_em_vários_campos;
+
+
+--> mostrar informações da tabela
+	sp_help nome_tabela
+
+
+--> Criar uma nova tabela (apenas para visualização) ordenando por tipo (nome da coluna)
+	select nome_primeira_coluna, SUM(nome_coluna_a_reunir_informações)As'nome da coluna para visualização'
+	from nome_tabela
+	group by nome_primeira_coluna
+
+	ex:
+	select tipo, SUM(quantidade)As'Quantidade em estoque'
+	from produtos
+	group by tipo
+
+--> GROUP BY: usado para agregar dados e obter insights deles (usado em combinação com outras funções para  cálculos específicos sobre grupos de dados)
+	select tipo, SUM(quantidade)As'Quantidade em estoque'
+	from produtos
+	group by tipo
+
+--> HAVING: 

@@ -1,0 +1,22 @@
+INSERT INTO usuarios (usu_id, usu_nome, usu_cpf, usu_data_nasc, usu_sexo, usu_telefone, usu_email, usu_observ, usu_acesso, usu_senha)
+VALUES
+     (1,'José Oliveira', '321.654.987-00', '1995-10-20', 1, '(11) 5432-1098', 'jose@example.com', 'Observações sobre Jose Oliveira.', 0, 'jose789'),
+     (2, 'João da Silva', '111.222.333-44', '1988-03-10', 1, '(11) 2222-3333', 'joao@example.com', 'Observações sobre João da Silva.', 0, 'joao123'),
+     (3, 'Maria Oliveira', '555.666.777-88', '1992-08-25', 0, '(11) 4444-5555', 'maria@example.com', 'Observações sobre Maria Oliveira.', 0, 'maria456'),
+     (4, 'Pedro Santos', '999.888.777-66', '1980-12-05', 1, '(11) 7777-8888', 'pedro@example.com', 'Observações sobre Pedro Santos.', 0, 'pedro789'),
+    (5, 'Ana Souza', '777.888.999-11', '1990-06-15', 0, '(11) 9999-1111', 'ana@example.com', 'Observações sobre Ana Souza.', 0, 'ana123'),
+    (6, 'Fernando Lima', '444.555.666-22', '1985-09-30', 1, '(11) 8888-2222', 'fernando@example.com', 'Observações sobre Fernando Lima.', 0, 'fernando456'),
+    (7, 'Mariana Silva', '111.222.333-55', '1998-12-12', 0, '(11) 7777-5555', 'mariana@example.com', 'Observações sobre Mariana Silva.', 0, 'mariana789'),
+    (8, 'Carlos Oliveira', '222.333.444-66', '1987-04-25', 1, '(11) 5555-6666', 'carlos@example.com', 'Observações sobre Carlos Oliveira.', 0, 'carlos789'),
+    (9, 'Patrícia Ferreira', '888.777.666-99', '1991-08-10', 0, '(11) 2222-8888', 'patricia@example.com', 'Observações sobre Patrícia Ferreira.', 0, 'patricia123'),
+    (10, 'Lucas Santos', '777.666.555-11', '1993-11-15', 1, '(11) 9999-3333', 'lucas@example.com', 'Observações sobre Lucas Santos.', 0, 'lucas456'),
+    (11, 'Amanda Lima', '333.222.111-44', '1989-07-20', 0, '(11) 4444-7777', 'amanda@example.com', 'Observações sobre Amanda Lima.', 0, 'amanda789'),
+    (12, 'Rafael Almeida', '555.444.333-77', '1995-02-28', 1, '(11) 6666-9999', 'rafael@example.com', 'Observações sobre Rafael Almeida.', 0, 'rafael123'),
+    (13, 'Laura Souza', '999.888.777-22', '1986-06-05', 0, '(11) 7777-1111', 'laura@example.com', 'Observações sobre Laura Souza.', 0, 'laura456'),
+    (14, 'Guilherme Oliveira', '111.222.333-66', '1990-09-12', 1, '(11) 8888-4444', 'guilherme@example.com', 'Observações sobre Guilherme Oliveira.', 0, 'guilherme789'),
+    (15, 'Juliana Silva', '777.888.999-33', '1984-03-30', 0, '(11) 5555-2222', 'juliana@example.com', 'Observações sobre Juliana Silva.', 0, 'juliana123'),
+    (16, 'Rodrigo Santos', '444.555.666-88', '1983-11-05', 1, '(11) 6666-3333', 'rodrigo@example.com', 'Observações sobre Rodrigo Santos.', 0, 'rodrigo456'),
+    (17, 'Bianca Ferreira', '222.333.444-11', '1994-12-18', 0, '(11) 3333-8888', 'bianca@example.com', 'Observações sobre Bianca Ferreira.', 0, 'bianca789'),
+    (18, 'Fernanda Oliveira', '555.444.333-22', '1997-05-08', 0, '(11) 9999-2222', 'fernanda@example.com', 'Observações sobre Fernanda Oliveira.', 0, 'fernanda123'),
+    (19, 'Marcos Souza', '777.888.999-11', '1982-09-17', 1, '(11) 3333-4444', 'marcos@example.com', 'Observações sobre Marcos Souza.', 0, 'marcos456'),
+    (20, 'Carla Lima', '111.222.333-55', '1996-11-30', 0, '(11) 8888-9999', 'carla@example.com', 'Observações sobre Carla Lima.', 0, 'carla789');

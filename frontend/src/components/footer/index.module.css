@@ -1,0 +1,402 @@
+.footer {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 10%;
+    background-color: #000000;
+    flex-direction: column;
+}
+
+.footerContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(400px, 500px) 1fr;
+    grid-template-rows: 1fr minmax(50px, 8vh);
+    grid-template-areas:
+        "icons  address"
+        "license license";
+}
+
+.footerIcons {
+    grid-area: icons;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.footerLogo {
+    width: 60%;
+    height: 50%;
+    background-image: url("../../../public/logo50.png");
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.footerSocialIcons {
+    width: 50%;
+    min-height: 30%;
+    margin-top: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconInstagram {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2.25rem;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3'/%3E%3C/svg%3E");
+    background: radial-gradient(circle at 30% 110%,
+            #ffdb8b 0%,
+            #ee653d 25%,
+            #d42e81 50%,
+            #a237b6 75%,
+            #3e57bc 100%);
+    ;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconWhatsapp {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2325d366' d='M12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23c-1.48 0-2.93-.39-4.19-1.15l-.3-.17l-3.12.82l.83-3.04l-.2-.32a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24M8.53 7.33c-.16 0-.43.06-.66.31c-.22.25-.87.86-.87 2.07c0 1.22.89 2.39 1 2.56c.14.17 1.76 2.67 4.25 3.73c.59.27 1.05.42 1.41.53c.59.19 1.13.16 1.56.1c.48-.07 1.46-.6 1.67-1.18s.21-1.07.15-1.18c-.07-.1-.23-.16-.48-.27c-.25-.14-1.47-.74-1.69-.82c-.23-.08-.37-.12-.56.12c-.16.25-.64.81-.78.97c-.15.17-.29.19-.53.07c-.26-.13-1.06-.39-2-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.12-.24-.01-.39.11-.5c.11-.11.27-.29.37-.44c.13-.14.17-.25.25-.41c.08-.17.04-.31-.02-.43c-.06-.11-.56-1.35-.77-1.84c-.2-.48-.4-.42-.56-.43c-.14 0-.3-.01-.47-.01'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconFacebook {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231877F2' d='M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconYoutube {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff0000' d='m10 15l5.19-3L10 9zm11.56-7.83c.13.47.22 1.1.28 1.9c.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83c-.25.9-.83 1.48-1.73 1.73c-.47.13-1.33.22-2.65.28c-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44c-.9-.25-1.48-.83-1.73-1.73c-.13-.47-.22-1.1-.28-1.9c-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83c.25-.9.83-1.48 1.73-1.73c.47-.13 1.33-.22 2.65-.28c1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44c.9.25 1.48.83 1.73 1.73'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.footerAddress {
+    grid-area: address;
+    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, minmax(5rem, 1fr));
+    grid-template-areas:
+        "phone tell"
+        "email address";
+}
+
+.footerAddressMobile {
+    display: none;
+}
+
+.iconTell,
+.iconTellMobile {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff9d00' d='M20 15.5c-1.2 0-2.5-.2-3.6-.6h-.3c-.3 0-.5.1-.7.3l-2.2 2.2c-2.8-1.5-5.2-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1c-.3-1.1-.5-2.4-.5-3.6c0-.5-.5-1-1-1H4c-.5 0-1 .5-1 1c0 9.4 7.6 17 17 17c.5 0 1-.5 1-1v-3.5c0-.5-.5-1-1-1M5 5h1.5c.1.9.3 1.8.5 2.6L5.8 8.8C5.4 7.6 5.1 6.3 5 5m14 14c-1.3-.1-2.6-.4-3.8-.8l1.2-1.2c.8.2 1.7.4 2.6.4zM15 3v1.5h3.5L13 10l1 1l5.5-5.5V9H21V3z'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconPhone,
+.iconPhoneMobile {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff9d00' d='M12 3C7.46 3 3.34 4.78.29 7.67c-.18.18-.29.43-.29.71s.11.53.29.71l2.48 2.48a1.01 1.01 0 0 0 1.41.01c.79-.74 1.69-1.36 2.66-1.85c.33-.16.56-.5.56-.9v-3.1C8.85 5.25 10.39 5 12 5c1.59 0 3.14.25 4.59.72v3.1c0 .39.23.74.56.9c.98.49 1.85 1.12 2.67 1.85c.18.18.43.28.68.28c.3 0 .55-.11.73-.29l2.48-2.48c.18-.18.29-.43.29-.71s-.12-.52-.3-.7A16.97 16.97 0 0 0 12 3M9 7v3s-6 5-6 8v4h18v-4c0-3-6-8-6-8V7h-2v2h-2V7zm3 5a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 1.5A2.5 2.5 0 0 0 9.5 16a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5a2.5 2.5 0 0 0-2.5-2.5'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconEmail,
+.iconEmailMobile {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff9d00' d='M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconAddress,
+.iconAddressMobile {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff9d00' d='M12 4c2.2 0 4 1.8 4 4c0 2.1-2.1 5.5-4 7.9c-1.9-2.5-4-5.8-4-7.9c0-2.2 1.8-4 4-4m0-2C8.7 2 6 4.7 6 8c0 4.5 6 11 6 11s6-6.6 6-11c0-3.3-2.7-6-6-6m0 4c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m8 13c0 2.2-3.6 4-8 4s-8-1.8-8-4c0-1.3 1.2-2.4 3.1-3.2l.6.9c-1 .5-1.7 1.1-1.7 1.8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5c0-.7-.7-1.3-1.8-1.8l.6-.9c2 .8 3.2 1.9 3.2 3.2'/%3E%3C/svg%3E");
+    background-position: center center;
+    cursor: pointer;
+}
+
+.iconAddressMobile,
+.iconEmailMobile,
+.iconPhoneMobile,
+.iconTellMobile {
+    display: none;
+}
+
+.phone,
+.email,
+.address,
+.tell {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.phone {
+    grid-area: phone;
+}
+
+.email {
+    grid-area: email;
+}
+
+.address {
+    grid-area: address;
+}
+
+.tell {
+    grid-area: tell;
+}
+
+.titlePhone,
+.titleTell,
+.titleEmail,
+.titleAddress {
+    font-size: clamp(1rem, 0.9471rem + 0.2824vw, 1.3rem);
+    padding: .15rem 0;
+    color: #fff;
+}
+
+.numberPhone,
+.numberTell,
+.addressEmail,
+.localizationEmail {
+    font-size: clamp(1rem, 0.9726rem + 0.1019vw, 1.1rem);
+    padding: .15rem 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+.infoPhone,
+.infoTell,
+.infoEmail,
+.infoAddress {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: 0 1rem;
+}
+
+.footerLicense {
+    grid-area: license;
+    display: flex;
+    flex-direction: column;
+    border-top: .15rem solid #ff9d00;
+}
+
+.copyright,
+.footerTerms {
+    width: 100%;
+    text-align: center;
+    padding: .6rem 0;
+    color: #fff;
+}
+
+@media screen and (max-width: 1128px) {
+    .footer {
+        padding: 1.2rem 5.8%;
+    }
+
+    .iconInstagram,
+    .iconWhatsapp,
+    .iconYoutube,
+    .iconFacebook {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .iconAddress,
+    .iconEmail,
+    .iconPhone,
+    .iconTell {
+        width: 1.7rem;
+        height: 1.7rem;
+    }
+}
+
+@media (max-width: 828px) {
+    .footer {
+        padding: 1.2rem 4%;
+    }
+
+    .footerContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr minmax(50px, 8vh);
+        grid-template-areas:
+            "icons"
+            "address"
+            "license";
+    }
+
+    .footerAddress {
+        padding: 1rem 1.5rem;
+    }
+
+    .email,
+    .address,
+    .phone,
+    .tell {
+        padding: 0 2rem;
+    }
+}
+
+@media screen and (max-width: 742px) {
+    .footerAddress {
+        padding: 1rem 1rem;
+    }
+
+    .email,
+    .address,
+    .phone,
+    .tell {
+        padding: 0 .5rem;
+    }
+}
+
+@media screen and (max-width: 606px) {
+    .footerAddress {
+        padding: 1rem .2rem;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .footerAddress {
+        display: none;
+    }
+
+    .footerLogo {
+        width: 90%;
+        height: 40%;
+    }
+
+    .footerContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 250px 1fr minmax(50px, 8vh);
+        grid-template-areas:
+            "icons"
+            "address"
+            "license";
+    }
+
+    .footerAddressMobile {
+        grid-area: address;
+        padding: 1rem 0;
+        display: grid;
+        padding: 1rem 3rem 2rem;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, minmax(5rem, 1fr));
+        grid-template-areas:
+            "phone"
+            "email"
+            "address";
+    }
+
+    .phoneMobile,
+    .emailMobile,
+    .addressMobile {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: .9rem;
+    }
+
+    .iconAddressMobile,
+    .iconEmailMobile,
+    .iconPhoneMobile,
+    .iconTellMobile {
+        display: inline-block;
+    }
+
+    .footerSocialIcons {
+        width: 80%;
+        min-height: 50%;
+    }
+
+    .numberPhoneMobile,
+    .numberTellMobile,
+    .addressEmailMobile,
+    .localizationEmailMobile {
+        width: 100%;
+        display: flex;
+        margin-top: .5rem;
+        justify-content: center;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .titleAddressMobile,
+    .titleEmailMobile,
+    .titleTellMobile,
+    .titlePhoneMobile {
+        display: none;
+    }
+
+    .phone,
+    .tell,
+    .address,
+    .email {
+        display: none;
+    }
+
+    .emailMobile,
+    .addressMobile,
+    .tellMobile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .infoAddressMobile,
+    .infoEmailMobile,
+    .infoPhoneMobile,
+    .infoTellMobile {
+        flex-direction: row;
+    }
+}

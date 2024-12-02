@@ -1,0 +1,360 @@
+import { useState, useEffect } from 'react';
+import styles from './page.module.css';
+
+import api from '@/services/api';
+
+import FormAgendamentosAdmin from '@/components/FormAgendamentosAdmin';
+
+import { PiListMagnifyingGlassBold } from "react-icons/pi";
+import { MdRemoveRedEye, MdEdit } from "react-icons/md";
+import { parseISO, format } from 'date-fns';
+import { IoMdTrash } from "react-icons/io";
+import Swal from 'sweetalert2';
+
+
+export default function HistoricoAgendamentos() {
+     // Estados para armazenar agendamentos e informações relacionadas
+     const [agendamentos, setAgendamentos] = useState([]); // Lista completa de agendamentos
+     const [filteredAgendamentos, setFilteredAgendamentos] = useState([]); // Agendamentos filtrados
+     const [searchText, setSearchText] = useState(''); // Texto da barra de busca
+     const [startDate, setStartDate] = useState(''); // Data inicial para filtro
+     const [endDate, setEndDate] = useState(''); // Data final para filtro
+     const [statusFilter, setStatusFilter] = useState('todos'); // Filtro de status
+     const [currentPage, setCurrentPage] = useState(1); // Página atual na paginação
+     const [sortedColumn, setSortedColumn] = useState(null); // Coluna sendo ordenada
+     const [isAsc, setIsAsc] = useState(true); // Direção da ordenação (ascendente ou descendente)
+     const [situacaoDoAgendamento, setSituacaoDoAgendamento] = useState([]); // Lista de situações dos agendamentos
+     const [userAcesso, setUserAcesso] = useState(null); // Tipo de acesso do usuário
+     const agendamentosPerPage = 15; // Quantidade de agendamentos por página
+     
+     const [showForm, setShowForm] = useState(false);
+     const [isViewing, setIsViewing] = useState(false);
+     const [isEditing, setIsEditing] = useState(false);
+
+    const [selectedAgend, setSelectedAgend] = useState({
+        agend_data: '',
+        agend_horario: '',
+        agend_id: '',
+        agend_observ: '',
+        agend_serv_situ_id: '',
+        serv_nome: '',
+        usu_id: '',
+        usu_nome: '',
+        veic_ano: '',
+        veic_cor: '',
+        veic_placa: '',
+        veic_usu_id: '',
+        cat_serv_id: '',
+        cat_serv_nome: '',
+        mod_nome: '',
+        mar_nome: ''
+    });
+
+    const agendSituacaoMap = {
+        1: 'Pendente',
+        2: 'Em andamento',
+        3: 'Concluído',
+        4: "Cancelado"
+    };
+
+    const colorMap = {
+        1: '#e69500f3',  // Pendente - Dourado
+        2: '#1b77d4',  // Em andamento - Azul
+        3: '#26a426',  // Concluído - Verde
+        4: '#c3290e'   // Cancelado - Vermelho
+    };
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('user');
+
+        if (storedData) {
+            const parsedUser = JSON.parse(storedData);
+            setUserAcesso(parsedUser?.acesso !== undefined ? parsedUser.acesso : null);
+        }
+    }, []);
+
+    useEffect(() => {
+        ListarAgendamentos();
+        ListarSituacaoDoAgendamento();
+    }, []);
+
+    const handleSubmit = async (agendamentos) => {
+        const dados = {
+            veic_usu_id: selectedAgend.veic_usu_id,
+            agend_data: selectedAgend.agend_data,
+            agend_horario: selectedAgend.agend_horario,
+            serv_id: selectedAgend.serv_id,
+            agend_serv_situ_id: selectedAgend.agend_serv_situ_id,
+            agend_observ: selectedAgend.agend_observ,
+            agend_id: selectedAgend.agend_id,
+        };
+
+        try {
+            let response;
+
+            if (isEditing) {
+                response = await api.patch(`/agendamentos/${agendamentos.agend_id}`, dados);
+            }
+
+            Swal.fire({
+                title: 'Sucesso!',
+                text: response.data.mensagem,
+                icon: 'success',
+                iconColor: "rgb(40, 167, 69)",
+                confirmButtonColor: "rgb(40, 167, 69)",
+            });
+
+            setShowForm(false);
+            setIsEditing(false);
+            setIsViewing(false);
+            ListarAgendamentos();
+        } catch (error) {
+            console.error('Erro ao salvar o agendamento:', error);
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Ocorreu um erro ao salvar o agendamento. Tente novamente.',
+                icon: 'error',
+                iconColor: "rgb(255, 69, 58)",
+                confirmButtonColor: "rgb(255, 69, 58)",
+            });
+        }
+    };
+
+    const handleEditAgend = (agendamentos) => {
+        setShowForm(true)
+        setSelectedAgend(agendamentos);
+        setIsViewing(false);
+        setIsEditing(true);
+    };
+
+    const handleViewAgend = (agendamentos) => {
+        setSelectedAgend(agendamentos);
+        setShowForm(true);
+        setIsViewing(true);
+        setIsEditing(false);
+    };
+
+    const CancelarAgendamento = async (agendamentos) => {
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Você deseja realmente excluir este veículo? Esta ação não pode ser desfeita.",
+            icon: "warning",
+            iconColor: "#ff9d00",
+            showCancelButton: true,
+            confirmButtonColor: "rgb(40, 167, 69)",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Cancelar",
+            reverseButtons: true,
+            backdrop: "rgba(0,0,0,0.7)"
+        }).then(async (result) => {
+
+            if (result.isConfirmed) {
+                try {
+                    const situacao = 0;
+                    const servSituacaoId = 4;
+
+                    const dados = {
+                        agend_situacao: parseInt(situacao, 10),
+                        agend_serv_situ_id: parseInt(servSituacaoId, 10)
+                    };
+
+                    const response = await api.patch(`/agendamentos/cancelar/${agendamentos.agend_id}`, dados);
+
+                    if (response.data.sucesso) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Veículo excluído com sucesso.',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            iconColor: "rgb(40, 167, 69)",
+                            confirmButtonColor: "rgb(40, 167, 69)",
+                        });
+                        ListarAgendamentos();
+                    } else {
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: response.data.mensagem || 'Ocorreu um erro ao excluir o veículo.',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            iconColor: '#d33',
+                            confirmButtonColor: '#d33',
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: `Erro na exclusão do veículo: ${error.message}`,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        iconColor: '#d33',
+                        confirmButtonColor: '#d33',
+                    });
+                }
+            }
+        });
+    };
+
+    const Cancelar = () => {
+        Swal.fire({
+            title: "Deseja Cancelar?",
+            text: "As informações não serão salvas",
+            icon: "warning",
+            iconColor: "orange",
+            showCancelButton: true,
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "rgb(40, 167, 69)",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Confirmar",
+            reverseButtons: true,
+            backdrop: "rgba(0,0,0,0.7)",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Cancelado!",
+                    text: "As alterações foram canceladas.",
+                    icon: "success",
+                    iconColor: "rgb(40, 167, 69)",
+                    confirmButtonColor: "rgb(40, 167, 69)",
+                }).then(() => {
+                    setShowForm(false);
+                    setSelectedAgend({
+                        agend_data: '',
+                        agend_horario: '',
+                        agend_id: '',
+                        agend_observ: '',
+                        agend_serv_situ_id: '',
+                        serv_nome: '',
+                        usu_id: '',
+                        usu_nome: '',
+                        veic_ano: '',
+                        veic_cor: '',
+                        veic_placa: '',
+                        veic_usu_id: '',
+                        cat_serv_id: '',
+                        cat_serv_nome: ''
+                    });
+                    setIsViewing(false);
+                    setIsEditing(false);
+                });
+            }
+        });
+    };
+
+    const handleExit = () => {
+        setShowForm(false);
+        setSelectedAgend({
+            agend_data: '',
+            agend_horario: '',
+            agend_id: '',
+            agend_observ: '',
+            agend_serv_situ_id: '',
+            serv_nome: '',
+            usu_id: '',
+            usu_nome: '',
+            veic_ano: '',
+            veic_cor: '',
+            veic_placa: '',
+            veic_usu_id: '',
+            cat_serv_id: '',
+            cat_serv_nome: ''
+        });
+        setIsViewing(false);
+        setIsEditing(false);
+    };
+
+    const ListarAgendamentos = async () => {
+        try {
+            const response = await api.get('/agendamentos');
+
+            const agendamentosOrdenados = response.data.dados.sort((a, b) => {
+                const dateTimeA = new Date(`${a.agend_data}T${a.agend_horario}`);
+                const dateTimeB = new Date(`${b.agend_data}T${b.agend_horario}`);
+                return dateTimeB - dateTimeA;
+            });
+
+            setAgendamentos(agendamentosOrdenados);
+            setFilteredAgendamentos(agendamentosOrdenados);
+        } catch (error) {
+            console.error("Erro ao buscar os agendamentos:", error);
+            Swal.fire({
+                title: "Erro!",
+                text: "Não foi possível carregar os agendamentos.",
+                icon: "error",
+                iconColor: '#d33',
+                confirmButtonColor: '#d33',
+            });
+        }
+    };
+
+    const ListarSituacaoDoAgendamento = async () => {
+        try {
+            const responde = await api.get('/agendaServicosSituacao');
+            setSituacaoDoAgendamento(responde.data.dados);
+        } catch (error) {
+            console.error("Erro ao buscar os situações dos agendamentos:", error);
+            Swal.fire({
+                title: "Erro!",
+                text: "Não foi possível carregar os agendamentos.",
+                icon: "error",
+                iconColor: '#d33',
+                confirmButtonColor: '#d33',
+            });
+        }
+    };
+
+    const handleSearch = (text) => {
+        setSearchText(text);
+        applyFilters(text, startDate, endDate, statusFilter);
+    };
+
+    const handleDateChange = (start, end) => {
+        setStartDate(start);
+        setEndDate(end);
+        applyFilters(searchText, start, end, statusFilter);
+    };
+
+    const handleStatusFilterChange = (status) => {
+        setStatusFilter(status);
+        applyFilters(searchText, startDate, endDate, status);
+    };
+
+    const applyFilters = (text, start, end, status) => {
+        const result = agendamentos.filter((agendamento) => {
+            const matchesText = agendamento.agend_observ.toLowerCase().includes(text.toLowerCase()) ||
+                agendamento.veic_placa.toLowerCase().includes(text.toLowerCase()) ||
+                agendamento.agend_id.toString().includes(text);
+
+            const agendamentoData = new Date(agendamento.agend_data).setUTCHours(0, 0, 0, 0);
+            const startDate = start ? new Date(start).setUTCHours(0, 0, 0, 0) : null;
+            const endDate = end ? new Date(end).setUTCHours(23, 59, 59, 999) : null;
+
+            const matchesDate = (!startDate || agendamentoData >= startDate) &&
+                (!endDate || agendamentoData <= endDate);
+
+            const matchesStatus = status === 'todos' || agendamento.agend_serv_situ_id === parseInt(status);
+
+            return matchesText && matchesDate && matchesStatus;
+        });
+        setFilteredAgendamentos(result);
+        setCurrentPage(1);
+    };
+
+    const sortByColumn = (column) => {
+        let newIsAsc = true;
+        if (sortedColumn === column) newIsAsc = !isAsc;
+
+        const sortedData = [...filteredAgendamentos].sort((a, b) => {
+            if (a[column] < b[column]) return newIsAsc ? -1 : 1;
+            if (a[column] > b[column]) return newIsAsc ? 1 : -1;
+            return 0;
+        });
+
+        setFilteredAgendamentos(sortedData);
+        setSortedColumn(column);
+        setIsAsc(newIsAsc);
+    };
+
+    const indexOfLastAgendamento = currentPage * agendamentosPerPage;
+    const indexOfFirstAgendamento = indexOfLastAgendamento - agendamentosPerPage;
+    const currentAgendamentos = filteredAgendamentos.slice(indexOfFirstAgendamento, indexOfLastAgendamento);

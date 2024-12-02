@@ -1,0 +1,89 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.titulo {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    border-bottom: 3px solid #ff9d00;
+    padding: 10px 20px;
+    margin-bottom: 25px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: #ff9d00;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.section p {
+    font-size: 1.3em;
+    line-height: 1.6;
+    text-align: justify;
+    word-break: normal;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.15rem 10%;
+    background-color: #000000;
+    flex-wrap: wrap;
+    border-bottom: 0.3rem solid #ff9d00;
+    height: 8vh;
+}
+
+.logo {
+    background-image: url('../../../../public/logo50.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    animation: fadeInAnimation linear 4s infinite;
+    width: 30%;
+    height: 75%;
+}
+
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .6;
+    }
+}

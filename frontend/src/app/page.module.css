@@ -1,0 +1,467 @@
+.main {
+    display: flex;
+    padding: 0 10%;
+    flex-direction: column;
+    background-color: #ececec;
+}
+
+.carrosselInicial {
+    display: block;
+}
+
+.carrosselMobile {
+    display: none;
+}
+
+.CarrosselMobileMedium {
+    display: none;
+
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    .carrosselInicial {
+        display: none;
+    }
+
+    .CarrosselMobileMedium {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .CarrosselMobileMedium {
+        display: none;
+    }
+
+    .carrosselMobile {
+        display: block;
+    }
+}
+
+.backgroundSection {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    z-index: 998;
+}
+
+.section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.divider {
+    width: 50%;
+    height: 2px;
+    background-color: #ff9d00;
+    margin: 40px auto;
+}
+
+/* SEÇÃO 1 */
+
+.sectionTitle1 {
+    width: 100%;
+    text-align: center;
+    color: #ff9d00;
+    padding: 1.5rem 0;
+    font-size: clamp(2rem, 1.1159rem + 3.2897vw, 4.2rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.sectionContent1 {
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem 0;
+    color: #FFF;
+}
+
+/* SEÇÃO 2 */
+
+.section2 {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.section2Image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 30%;
+}
+
+.section2Content {
+    width: 50%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    text-align: justify;
+    line-height: 2.2rem;
+}
+
+.imagememsi {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.section2Title {
+    display: flex;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.section2Description {
+    font-size: 1.55rem;
+    margin-bottom: 2rem;
+}
+
+.section2ButtonContainer {
+    position: relative;
+    width: 26%;
+}
+
+.section2Button {
+    padding: 0.7rem 2.5rem;
+    font-size: 1rem;
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.section2Button:hover {
+    background-color: #cc7a00;
+    color: #eeeeee;
+}
+
+.secao3 {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+}
+
+.sectionHeading {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.employeeContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.employeeCard {
+    background-color: #fff;
+    padding: 20px;
+    height: 27rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.employeeImage {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.employeeName {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.employeePosition {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #777;
+}
+
+.employeeDescription {
+    font-size: 1rem;
+    color: #666;
+}
+
+.carrouselEquipe {
+    display: flex;
+    width: 100%;
+}
+
+.carrouselEquipeMobile {
+    display: none;
+}
+
+.section4 {
+    width: 100%;
+    min-height: 80vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title_questions {
+    width: 100%;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 3.5rem;
+    color: #ff9d00;
+}
+
+.container_questions {
+    width: 80%;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.details {
+    color: azure;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 10px;
+    background-color: #cccccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, background-color 0.3s ease;
+    -webkit-box-shadow: 8px 8px 14px -7px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 8px 8px 14px -7px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 4px 14px -7px rgba(0, 0, 0, 0.5);
+}
+
+.summary {
+    border: 0.15rem solid #444;
+    color: #222;
+    display: flex;
+    align-items: center;
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    background-color: #dbdbdb;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.boxArrow {
+    display: flex;
+    width: 10%;
+    padding: auto;
+    justify-content: center;
+}
+
+.summary_content {
+    width: 90%;
+    padding: 1.3rem 0 1.3rem 1.3rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.title_summary {
+    width: 100%;
+    height: 10px;
+}
+
+.summary:hover {
+    background-color: #444;
+    color: azure;
+}
+
+.summary:hover .arrow_down {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E");
+}
+
+details[open] .summary {
+    background-color: #444;
+    color: azure;
+}
+
+details[open] .summary .arrow_down {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff9d00' d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E");
+}
+
+details[open] .arrow_down {
+    transform: rotate(180deg);
+    transition: transform 0.4s ease;
+}
+
+details .arrow_down {
+    transform: rotate(0deg);
+    transition: transform 0.4s ease;
+}
+
+.description {
+    display: flex;
+    color: #222;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 21px;
+    display: flex;
+    padding: 1.3rem;
+    max-height: 0;
+    display: flex;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+
+.details[open] {
+    margin-bottom: 2rem;
+}
+
+details[open] .description {
+    max-height: 200px;
+    padding: 1rem;
+}
+
+.arrow_down {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23444444' d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 1024px) {
+    .main {
+        padding: 0 5%;
+    }
+
+    .section2 {
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+    }
+
+    .section2Image {
+        width: 100%;
+        height: 50%;
+    }
+
+    .section2Content {
+        text-align: justify;
+        width: 100%;
+        height: auto;
+        min-height: 50%;
+        padding-left: 0;
+    }
+
+    .section2Title {
+        font-size: 3rem;
+    }
+
+    .section2Description {
+        font-size: 1.7rem;
+    }
+
+    .employeeContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .container_questions {
+        width: 90%;
+        padding: 0;
+    }
+
+    .section2 {
+        height: 100vh;
+    }
+
+    .section2Button {
+        width: 100%;
+    }
+
+    .employeeContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .divider {
+        width: 70%;
+    }
+
+    .title_questions {
+        font-size: 2.5rem;
+    }
+
+    .carrouselEquipe {
+        display: none;
+
+    }
+
+    .carrouselEquipeMobile {
+        display: flex;
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .section2 {
+        height: 110vh;
+    }
+
+    .container_questions {
+        width: 100%;
+    }
+
+    .section2Title {
+        font-size: 2.7rem;
+    }
+
+    .section2Description {
+        font-size: 1.5rem;
+    }
+
+    .employeeCard {
+        height: auto;
+    }
+
+    .divider {
+        width: 90%;
+    }
+
+    .title_questions {
+        font-size: 2rem;
+    }
+
+    .summary_content {
+        font-size: 1.2rem;
+        text-wrap: wrap;
+    }
+}

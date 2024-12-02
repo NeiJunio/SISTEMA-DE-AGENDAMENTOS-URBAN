@@ -1,0 +1,290 @@
+.container {
+    width: 75.7%;
+    height: 70%;
+    padding: 2rem;
+    position: absolute;
+}
+
+.tabsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    position: relative;
+}
+
+.emalta {
+    font-size: 2em;
+    color: white;
+}
+
+.input {
+    display: none;
+}
+
+.tab {
+    padding: 2rem;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.tab:hover,
+.input:checked+.tab {
+    background-color: #ff9d00;
+    color: #333;
+}
+
+.content {
+    display: none;
+    padding: 15px;
+    border-left: 5px solid #ff9d00;
+    background-color: #333;
+    color: #ececec;
+    position: absolute;
+    width: 280%;
+    left: 18rem;
+    line-height: 1.7rem;
+    font-size: 24px;
+    text-align: center;
+}
+
+.input:checked+.tab+.content {
+    display: none;
+}
+
+.main {
+    display: flex;
+    padding: 0 10%;
+    flex-direction: column;
+}
+
+.section {
+    width: 100%;
+    height: 80vh;
+}
+
+.geral_servicos {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar_buttons {
+    width: 30%;
+    height: 80%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #222;
+    position: relative;
+    margin-right: 15px;
+}
+
+.sidebar_buttons h2 {
+    font-size: 1em;
+    color: white;
+}
+
+.link_button {
+    width: 90%;
+    height: 12.5%;
+    font-size: 1.2rem;
+    background-color: #eb940a;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 4px 4px 14px -7px rgba(0, 0, 0, 0.5);
+    color: white;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.link_button:hover {
+    background-color: #ff9d00;
+    color: white;
+
+}
+
+.link_button.active {
+    background-color: #ff9d00;
+    border: 0.15rem solid gray;
+    color: white;
+    opacity: 1;
+    font-weight: 500;
+}
+
+.container_servicos {
+    width: 73%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1rem;
+    box-shadow: 4px 4px 14px -7px rgba(0, 0, 0, 0.5);
+    border: 0.15rem solid #cccccc;
+}
+
+.backButton {
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    background-color: #ff9d00;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.backButton:hover {
+    background-color: #ff9d00;
+    color: #333;
+}
+
+.container_servicosMobile {
+    display: none;
+}
+
+@media screen and (max-width: 1050px) {
+
+    .sidebar_buttons {
+        display: none;
+    }
+
+    .section {
+        width: 100%;
+        height: 220vh;
+    }
+
+    .servico p {
+        font-size: 2.5rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    .container_servicosMobile h2 {
+        display: none;
+    }
+
+    .container_servicos {
+        display: none;
+    }
+
+    .container_servicosMobile {
+        width: 100%;
+        height: 90%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas:
+            "servico1 servico2"
+            "servico3 servico4"
+            "servico5 servico6";
+        grid-gap: 1rem;
+        border-radius: 1rem;
+        margin: 1rem 0;
+    }
+
+    .servico {
+        width: 100%;
+        height: 85%;
+        border-radius: 1rem;
+        border: 0.15rem solid #cccccc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .um {
+        grid-area: servico1;
+    }
+
+    .dois {
+        grid-area: servico2;
+    }
+
+    .tres {
+        grid-area: servico3;
+    }
+
+    .quatro {
+        grid-area: servico4;
+    }
+
+    .cinco {
+        grid-area: servico5;
+    }
+
+    .seis {
+        grid-area: servico6;
+    }
+
+    .img {
+        width: 100%;
+        height: 50%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .contentText {
+        width: 90%;
+        height: 40%;
+        padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        font-size: 1.05rem;
+        line-height: 1.5rem;
+        text-align: justify;
+        border-top: .3rem solid #ff9d00;
+    }
+
+    .imgServico {
+        width: 90%;
+        height: 100%;
+        margin: auto;
+        object-fit: fill;
+    }
+}
+
+@media screen and (max-width: 740px) {
+
+    .section {
+        width: 100%;
+        height: 450vh;
+        display: flex;
+    }
+
+    .container_servicosMobile {
+        width: 100%;
+        height: 90%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-areas:
+            "servico1" "servico2"
+            "servico3" "servico4"
+            "servico5" "servico6";
+        grid-gap: 1rem;
+        border-radius: 1rem;
+    }
+
+    .container_servicosMobile h2 {
+        font-size: 2rem;
+        text-align: center;
+        display: flex;
+    }
+}

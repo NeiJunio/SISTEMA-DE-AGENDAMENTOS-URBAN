@@ -1,0 +1,174 @@
+.title_page {
+    padding-left: 20px;
+    color: #ff9d00;
+    border-bottom: 2px solid #ff9d00;
+    padding: 15px;
+    font-size: 22px;
+}
+
+.form {
+    margin: 20px 0;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 30px 15px;
+}
+
+.label_veiculos {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-family: "Kanit", sans-serif;
+}
+
+.input_veiculos {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 3px solid #8d8c8c;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #f9f9f9;
+}
+
+.grid {
+    display: contents;
+}
+
+.grid_item {
+    flex-direction: column;
+}
+
+.grid_codigo,
+.grid_situacao {
+    grid-column: span 2;
+}
+
+.grid_categoria,
+.grid_marca,
+.grid_ano,
+.grid_cor,
+.grid_placa,
+.grid_combustivel,
+.grid_proprietario {
+    grid-column: span 3;
+}
+
+.grid_modelo {
+    grid-column: span 4;
+}
+
+.grid_observacoes {
+    grid-column: span 10;
+}
+
+.grid_observacoesSmall {
+    grid-column: span 7;
+}
+
+.input_combustivel,
+.input_cor,
+.input_situacao,
+.input_proprietario,
+.input_modelo {
+    flex: 1;
+}
+
+.select_veiculos {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 3px solid #8d8c8c;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #f9f9f9;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5H7z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    cursor: pointer;
+}
+
+.select_veiculos:hover {
+    border-color: #ff9d00;
+}
+
+.select_veiculos:focus,
+.input_veiculos:focus {
+    border-color: #ff9d00;
+    outline: none;
+}
+
+.inputErro {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 3px solid #e90b0b;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #f9f9f9;
+}
+
+.error_message {
+    color: red;
+    font-size: 0.9em;
+}
+
+.info {
+    color: blue;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+.numProprietarios {
+    margin: 0 10px;
+}
+
+@media only screen and (max-width: 500px) {
+    .form {
+        background-color: #f9f9f9;
+        border-radius: .5rem;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid_codigo,
+    .grid_categoria,
+    .grid_placa,
+    .grid_situacao,
+    .grid_modelo,
+    .grid_marca,
+    .grid_ano,
+    .grid_cor,
+    .grid_combustivel,
+    .grid_proprietario,
+    .grid_observacoes {
+        grid-column: span 4;
+    }
+
+    .input_veiculos,
+    .select_veiculos {
+        width: 100%;
+    }
+
+    .footer_form {
+        padding: 20px 20px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .button_submit {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .button_cancel {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+}

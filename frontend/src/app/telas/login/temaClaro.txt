@@ -1,0 +1,195 @@
+/* Estilos principais - versão light */
+.main {
+    color: #333; /* Texto mais escuro para contraste */
+    background-color: #f5f5f5; /* Fundo claro */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Container de login */
+.container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    background-color: #e0e0e0; /* Fundo claro para o lado da imagem */
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Caixa de login */
+.boxLogin {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff; /* Fundo claro para o box de login */
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra mais suave */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+/* Logo */
+.logoImg {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.imgLogo {
+    object-fit: contain;
+}
+
+/* Título de login */
+.titleLogin {
+    font-size: 3rem;
+    color: #ff9d00;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Formulário de login */
+.formLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+/* Grupos de entrada */
+.inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.labelLogin {
+    font-size: 1.3rem;
+    color: #333333; /* Texto mais escuro */
+    margin-bottom: 1rem;
+}
+
+/* Campo de entrada */
+.inputLogin {
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #f0f0f0; /* Fundo claro para o campo */
+    color: #333333;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.inputLogin:focus {
+    border-color: #ff9d00;
+    box-shadow: 0 0 6px rgba(255, 157, 0, 0.5);
+    outline: none;
+}
+
+/* Botão de login */
+.loginButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loginButton {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+    background-color: #ff9d00;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.loginButton:hover {
+    background-color: #e68900;
+}
+
+/* Link de cadastro */
+.registerLink {
+    text-align: center;
+    color: #333333;
+}
+
+.link {
+    color: #ff9d00;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Container do checkbox */
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilização personalizada do checkbox */
+.checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #ff9d00;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.checkbox:checked {
+    background-color: #ff9d00;
+    border-color: #ff9d00;
+}
+
+.checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Estilo do rótulo do checkbox */
+.checkboxLabel {
+    font-size: 1.2rem;
+    color: #333333;
+    cursor: pointer;
+}

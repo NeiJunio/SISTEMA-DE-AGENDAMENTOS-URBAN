@@ -1,0 +1,309 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import styles from "./page.module.css";
+
+import api from "@/services/api";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { cpf as cpfValidator } from 'cpf-cnpj-validator';
+import InputMask from "react-input-mask";
+import Swal from "sweetalert2";
+
+export default function Cadastro() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [cpfError, setCpfError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [isCheckingEmail, setIsCheckingEmail] = useState(false);
+    const [isCheckingCpf, setIsCheckingCpf] = useState(false);
+    const [senhaErro, setSenhaErro] = useState([]);
+    const [focused, setFocused] = useState(false);
+    const [senha, setSenha] = useState('');
+    const [usuario, setUsuario] = useState({
+        usu_nome: '',
+        usu_cpf: '',
+        usu_data_nasc: '',
+        usu_sexo: '',
+        usu_telefone: '',
+        usu_email: '',
+        usu_observ: '',
+        usu_acesso: 0,
+        usu_senha: '',
+        usu_situacao: 1,
+    });
+
+    const router = useRouter();
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUsuario(prev => ({ ...prev, [name]: value }));
+
+        if (name === 'usu_cpf') {
+            setCpfError('');
+        }
+        if (name === 'usu_email') {
+            setEmailError('');
+        }
+    };
+
+    const validateEmail = async () => {
+        const email = usuario.usu_email.trim();
+        let errorMessage = null;
+
+        if (!isValidEmail(email)) {
+            errorMessage = 'Email inválido.';
+            setEmailError(errorMessage);
+            return errorMessage;
+        }
+
+        setIsCheckingEmail(true);
+        try {
+            const response = await api.post('/usuarios/verificarEmail', { usu_email: email });
+
+            if (response.data.sucesso && response.data.dados) {
+                errorMessage = 'Email já está cadastrado.';
+                setEmailError(errorMessage);
+            }
+        } catch (error) {
+            console.error('Erro na verificação do email:', error);
+            errorMessage = 'Erro ao verificar o email.';
+            setEmailError(errorMessage);
+        } finally {
+            setIsCheckingEmail(false);
+        }
+
+        return errorMessage;
+    };
+
+    const validateCPF = async () => {
+        const cpfNumbers = usuario.usu_cpf.trim();
+        let errorMessage = null;
+
+        if (cpfNumbers.length !== 14) {
+            errorMessage = 'CPF deve conter 11 dígitos numéricos.';
+            setCpfError(errorMessage);
+            return errorMessage;
+        }
+
+        if (!cpfValidator.isValid(cpfNumbers)) {
+            errorMessage = 'CPF inválido.';
+            setCpfError(errorMessage);
+            return errorMessage;
+        }
+
+        setIsCheckingCpf(true);
+        try {
+            const response = await api.post('/usuarios/verificarCpf', { usu_cpf: cpfNumbers });
+
+            if (response.data.sucesso && response.data.dados) {
+                errorMessage = 'CPF já está cadastrado.';
+                setCpfError(errorMessage);
+            }
+        } catch (error) {
+            console.error('Erro na verificação do CPF:', error);
+            errorMessage = 'Ocorreu um erro ao verificar o CPF. Por favor, tente novamente.';
+            setCpfError(errorMessage);
+        } finally {
+            setIsCheckingCpf(false);
+        }
+
+        return errorMessage;
+    };
+
+    const handleChangeSenha = (event) => {
+        const novaSenha = event.target.value;
+        setSenha(novaSenha);
+        setUsuario({ ...usuario, usu_senha: novaSenha });
+
+        if (focused) {
+            const erros = validarSenha(novaSenha);
+            setSenhaErro(erros);
+        }
+    };
+
+    const validarSenha = (senha) => {
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(senha);
+        const hasLowerCase = /[a-z]/.test(senha);
+        const hasNumber = /\d/.test(senha);
+        const hasSpecialChar = /[!@#$%^&*]/.test(senha);
+        const hasSpaces = /\s/.test(senha);
+
+        let errorMessage = [];
+
+        if (senha.length < minLength) {
+            errorMessage.push(`Pelo menos ${minLength} caracteres.`);
+        }
+        if (!hasUpperCase) {
+            errorMessage.push('Uma letra maiúscula.');
+        }
+        if (!hasLowerCase) {
+            errorMessage.push('Uma letra minúscula.');
+        }
+        if (!hasNumber) {
+            errorMessage.push('Um número.');
+        }
+        if (!hasSpecialChar) {
+            errorMessage.push('Um caractere especial (ex: !@#$%^&*).');
+        }
+        if (hasSpaces) {
+            errorMessage.push('Sem espaços em branco.');
+        }
+
+        return errorMessage.length > 0 ? errorMessage : [];
+    };
+
+    const handleFocus = () => {
+        setFocused(true);
+    };
+
+    const handleBlur = () => {
+        setFocused(false);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const errors = [];
+
+        const cpfValidationError = await validateCPF();
+        if (cpfValidationError) {
+            errors.push(cpfValidationError);
+        }
+
+        const emailValidationError = await validateEmail();
+        if (emailValidationError) {
+            errors.push(emailValidationError);
+        }
+
+        const senhaError = validarSenha(senha);
+        if (senhaError.length > 0) {
+            errors.push(senhaError.join(' '));
+        }
+
+        if (errors.length > 0) {
+            Swal.fire({
+                title: 'Dados Incorretos',
+                html: errors.join('<br/>'),
+                icon: 'error',
+                confirmButtonText: 'OK',
+                iconColor: '#d33',
+                confirmButtonColor: '#d33',
+            });
+            return;
+        }
+        cadastrar();
+    };
+
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const clearInputs = () => {
+        setUsuario({
+            usu_nome: '',
+            usu_cpf: '',
+            usu_data_nasc: '',
+            usu_sexo: '',
+            usu_telefone: '',
+            usu_email: '',
+            usu_observ: '',
+            usu_acesso: 0,
+            usu_senha: '',
+            usu_situacao: 1,
+        });
+        setCpfError('');
+        setEmailError('');
+    };
+
+    async function cadastrar() {
+        try {
+            const response = await api.post('/usuarios', usuario);
+
+            if (response.data.sucesso === true) {
+                const usu_id = response.data.dados;
+
+                clearInputs();
+                localStorage.clear();
+                localStorage.setItem('user', JSON.stringify({
+                    id: usu_id,
+                    nome: usuario.usu_nome,
+                    email: usuario.usu_email,
+                    senha: usuario.usu_senha,
+                    sexo: usuario.usu_sexo,
+                    data_nasc: usuario.usu_data_nasc,
+                    cpf: usuario.usu_cpf,
+                    telefone: usuario.usu_telefone,
+                }));
+
+                toast.success('Cadastrado com sucesso!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+
+                setTimeout(() => {
+                    router.push('/telas/login');
+                }, 1500);
+
+            } else {
+                console.error('Erro no cadastro:', response.data.mensagem, response.data.dados);
+                if (response.data.mensagem.includes('CPF já cadastrado')) {
+                    Swal.fire({
+                        title: 'CPF Já Cadastrado',
+                        text: 'O CPF informado já está cadastrado. Por favor, verifique ou utilize outro CPF.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        iconColor: '#d33',
+                        confirmButtonColor: '#d33',
+                    });
+                } else {
+                    toast.error('Erro no cadastro. Tente novamente.', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Erro no cadastro:', error.response ? error.response.data : error.message);
+            if (error.response && error.response.data && error.response.data.mensagem.includes('CPF já cadastrado')) {
+                Swal.fire({
+                    title: 'CPF Já Cadastrado',
+                    text: 'O CPF informado já está cadastrado. Por favor, verifique ou utilize outro CPF.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    iconColor: '#d33',
+                    confirmButtonColor: '#d33',
+                });
+            } else {
+                Swal.fire({
+                    title: 'Erro no Cadastro',
+                    text: 'Ocorreu um erro durante o cadastro. Por favor, tente novamente mais tarde.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    iconColor: '#d33',
+                    confirmButtonColor: '#d33',
+                });
+            }
+        }
+    }

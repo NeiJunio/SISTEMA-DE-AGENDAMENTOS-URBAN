@@ -1,0 +1,353 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import styles from "./page.module.css";
+
+export default function Home() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [darkMode, setDarkMode] = useState(true);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const toggleTheme = () => {
+        setDarkMode(!darkMode);
+    };
+
+    return (
+        <>
+            <main className={`${styles.main} ${darkMode ? styles.dark : styles.light}`}>
+                <div className={styles.themeToggle}>
+                    <button onClick={toggleTheme} className={styles.themeButton}>
+                        {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                    </button>
+                </div>
+                <div className={styles.container}>
+                    <div className={styles.boxLogin}>
+                        <div className={styles.logoImg}>
+                            <Image
+                                src='/logo50.png'
+                                alt="logo"
+                                width={393}
+                                height={78}
+                                className={styles.imgLogo}
+                            />
+                        </div>
+
+                        <span className={styles.titleLogin}>LOGIN</span>
+
+                        <form className={styles.formLogin}>
+                            <div className={styles.inputGroup}>
+                                <label htmlFor="email" className={styles.labelLogin}>Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    className={styles.inputLogin}
+                                    placeholder="Digite seu email"
+                                    required
+                                />
+                            </div>
+
+                            <div className={styles.inputGroup}>
+                                <label htmlFor="password" className={styles.labelLogin}>Senha</label>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    name="password"
+                                    className={styles.inputLogin}
+                                    placeholder="Digite sua senha"
+                                    required
+                                />
+                            </div>
+
+                            <div className={styles.checkboxContainer}>
+                                <input
+                                    type="checkbox"
+                                    id="showPassword"
+                                    checked={showPassword}
+                                    onChange={togglePasswordVisibility}
+                                    className={styles.checkbox}
+                                />
+                                <label htmlFor="showPassword" className={styles.checkboxLabel}>
+                                    Mostrar senha
+                                </label>
+                            </div>
+
+                            <div className={styles.loginButtonContainer}>
+                                <button type="submit" className={styles.loginButton}>Entrar</button>
+                            </div>
+
+                            <div className={styles.registerLink}>
+                                Não tem uma conta? <Link href="/cadastro" className={styles.link}>Cadastre-se</Link>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div className={styles.image}>
+                    <Image
+                        src='/imgCarrossel/img2.jpg'
+                        alt="Background Image"
+                        width={4256}
+                        height={2832}
+                        className={styles.img}
+                    />
+                </div>
+            </main>
+        </>
+    );
+}
+
+
+
+
+
+
+/* Estilos principais */
+.main {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Modo Escuro */
+.dark {
+    color: #fff;
+    background-color: #1c1c1c;
+}
+
+/* Modo Claro */
+.light {
+    color: #000;
+    background-color: #f0f0f0;
+}
+
+/* Botão para alternar o tema */
+.themeToggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.themeButton {
+    background-color: #ff9d00;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.themeButton:hover {
+    background-color: #e68900;
+}
+
+/* Container de login */
+.container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    background-color: #121212;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Caixa de login */
+.boxLogin {
+    width: 100%;
+    max-width: 600px;
+    background-color: #2c2c2c;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.light .boxLogin {
+    background-color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo */
+.logoImg {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.imgLogo {
+    object-fit: contain;
+}
+
+/* Título de login */
+.titleLogin {
+    font-size: 3rem;
+    color: #ff9d00;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Formulário de login */
+.formLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+/* Grupos de entrada */
+.inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.labelLogin {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.dark .labelLogin {
+    color: #ffffff;
+}
+
+.light .labelLogin {
+    color: #000000;
+}
+
+/* Campo de entrada */
+.inputLogin {
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.light .inputLogin {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #cccccc;
+}
+
+.inputLogin:focus {
+    border-color: #ff9d00;
+    box-shadow: 0 0 6px rgba(255, 157, 0, 0.7);
+    outline: none;
+}
+
+/* Botão de login */
+.loginButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loginButton {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+    background-color: #ff9d00;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.loginButton:hover {
+    background-color: #e68900;
+}
+
+/* Link de cadastro */
+.registerLink {
+    text-align: center;
+}
+
+.dark .registerLink {
+    color: #ffffff;
+}
+
+.light .registerLink {
+    color: #000000;
+}
+
+.link {
+    color: #ff9d00;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Container do checkbox */
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilização personalizada do checkbox */
+.checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #ff9d00;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    background-color: #2c2c2c;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.checkbox:checked {
+    background-color: #ff9d00;
+    border-color: #ff9d00;
+}
+
+.checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+

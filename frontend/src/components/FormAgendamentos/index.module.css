@@ -1,0 +1,189 @@
+.form {
+    margin: 20px 0;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 30px 15px;
+}
+
+.label_agend {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.input_agend {
+    width: calc(100% - 20px);
+    padding: 10px;
+    max-height: 47px;
+    margin-top: 5px;
+    border: 3px solid #8d8c8c;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #f9f9f9;
+}
+
+.grid {
+    display: contents;
+}
+
+.grid_item {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid_codigo {
+    grid-column: span 2;
+}
+
+.grid_situacao {
+    grid-column: span 4;
+}
+
+.grid_placa,
+.grid_horario,
+.grid_data,
+.grid_cor,
+.grid_marca,
+.grid_modelo,
+.grid_ano {
+    grid-column: span 4;
+}
+
+.grid_cliente {
+    grid-column: span 6;
+}
+
+.grid_catserv,
+.grid_nomeserv {
+    grid-column: span 6;
+}
+
+.grid_observacoes {
+    grid-column: span 12;
+}
+
+.input_sexo,
+.input_acesso,
+.input_situacao {
+    flex: 1;
+}
+
+.grid_item_descricao {
+    grid-column: span 8;
+}
+
+.error_message_simples {
+    color: red;
+    font-size: 0.9em;
+}
+
+.error_message {
+    color: #d9534f;
+    font-size: 0.9em;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 8px 12px;
+    border-radius: 5px;
+    line-height: 1.4;
+    max-width: 400px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.hidden {
+    opacity: 0;
+    max-height: 0;
+    padding: 0;
+    visibility: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.th,
+.td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.th {
+    background-color: #333;
+    color: white;
+}
+
+.td {
+    background-color: #fff;
+}
+
+.select_cliente {
+    width: calc(100% - 20px);
+    padding: 8px;
+    max-height: 47px;
+    margin-top: 5px;
+    border: 3px solid #8d8c8c;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #f9f9f9;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5H7z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    cursor: pointer;
+}
+
+.select_cliente:hover {
+    border-color: #ff9d00;
+}
+
+.select_cliente:focus,
+.input_agend:focus,
+.input_agend_senha:focus,
+.input_agend_password:focus {
+    border-color: #ff9d00;
+    outline: none;
+}
+
+.input_medium_select {
+    flex: 2;
+}
+
+.mdEye {
+    width: 24px;
+    height: 24px;
+    margin: auto 10px;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+.success {
+    color: green;
+    font-size: 0.9em;
+}
+
+.loading {
+    color: blue;
+    font-size: 0.9em;
+}
