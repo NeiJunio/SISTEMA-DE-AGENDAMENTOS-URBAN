@@ -24,6 +24,7 @@ O **URBAN Estética Automotiva** é um sistema web desenvolvido para otimizar o 
 - **SweetAlert2:** Biblioteca para exibir mensagens de feedback aos usuários de forma elegante e personalizada.
 - **React Responsive Carousel:** Biblioteca para implementação de carrosséis responsivos e interativos, facilitando a exibição de conteúdos como imagens e textos de forma dinâmica.
 
+
 ## **Funcionalidades**
 ### **Para Clientes**
 1. **Agendamento de Serviços:**
@@ -51,6 +52,7 @@ O **URBAN Estética Automotiva** é um sistema web desenvolvido para otimizar o 
    - Crie, edite ou remova veículos.
 5. **Autenticação:**
    - Controle de acesso baseado em permissões.
+
 
 ## **Instalação**
 ### 1. **Clonando o Repositório**
@@ -97,8 +99,8 @@ O **URBAN Estética Automotiva** é um sistema web desenvolvido para otimizar o 
    - **Clientes:** Acompanhe e gerencie seus agendamentos.
    - **Administradores:** Gerencie usuários, veículos, serviços e agendamentos.
 
-## **Contribuição**
 
+## **Contribuição**
 Contribuições são bem-vindas! Para contribuir:  
 
 1. Faça um fork do repositório.  
@@ -118,6 +120,7 @@ Contribuições são bem-vindas! Para contribuir:
 Este projeto está licenciado sob a **Licença MIT**, uma licença permissiva que permite uso, modificação e distribuição do código, desde que a atribuição adequada seja fornecida.  
 
 Para mais detalhes, consulte o arquivo [LICENSE](./LICENSE). 
+
 
 ## **Créditos**
 Este projeto foi desenvolvido por um grupo de colaboradores. Gostaríamos de agradecer a todos que contribuíram para o desenvolvimento do sistema.
