@@ -4,7 +4,19 @@ import styles from './index.module.css';
 import InputMask from "react-input-mask";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 
-export default function FormCliente({ selectedUser, setSelectedUser, senhaErro, setSenhaErro, focused, handleFocus, handleBlur, validarSenha, isViewing, handleSubmit, isEditing }) {
+export default function FormCliente({
+    selectedUser,
+    setSelectedUser,
+    senhaErro,
+    setSenhaErro,
+    focused,
+    handleFocus,
+    handleBlur,
+    validarSenha,
+    isViewing,
+    handleSubmit,
+    isEditing
+}) {
 
     const [showPassword, setShowPassword] = useState(false);
     const [cpfExists, setCpfExists] = useState(false);

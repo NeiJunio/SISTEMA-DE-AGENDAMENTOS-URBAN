@@ -1,13 +1,12 @@
-'use client' // Indica que este arquivo é executado no cliente, necessário em projetos Next.js para usar funcionalidades específicas.
+'use client'
 
-import { useState, useEffect } from 'react'; // Importa hooks do React para gerenciamento de estado e efeitos colaterais.
-import Link from 'next/link'; // Importa o componente de link do Next.js para navegação entre páginas.
-import styles from './page.module.css'; // Importa os estilos CSS para a página.
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import styles from './page.module.css';
 
-import Header from '@/components/header'; // Importa o componente de cabeçalho.
-import Footer from '@/components/footer'; // Importa o componente de rodapé.
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 
-// Importa as páginas dos serviços individualmente.
 import Servico1 from './servico1/page';
 import Servico2 from './servico2/page';
 import Servico3 from './servico3/page';
@@ -16,27 +15,22 @@ import Servico5 from './servico5/page';
 import Servico6 from './servico6/page';
 
 export default function Servicos() {
-    // Hook useState para gerenciar o estado da tela atual (qual serviço está selecionado).
     const [tela, setTela] = useState(1);
 
-    // useEffect para configurar o estado inicial da tela ao montar o componente.
     useEffect(() => {
-        setTela(1); // Define a tela inicial como 1.
+        setTela(1);
     }, []);
 
     return (
         <>
-            {/* Componente de cabeçalho comum em todas as páginas */}
             <Header />
 
             <main className={styles.main}>
                 <section className={styles.section}>
                     <div className={styles.geral_servicos}>
-                        {/* Menu lateral com botões para seleção de serviços */}
                         <div className={styles.sidebar_buttons}>
                             <h1 className={styles.emalta}>Em alta</h1>
 
-                            {/* Cada botão altera o estado "tela" para exibir o serviço correspondente */}
                             <Link href='' className={`${styles.link_button} ${tela === 1 ? styles.active : ''}`} onClick={() => setTela(1)}>
                                 Polimento e Cristalização da Pintura
                             </Link>
@@ -60,11 +54,11 @@ export default function Servicos() {
                             <Link href='' className={`${styles.link_button} ${tela === 6 ? styles.active : ''}`} onClick={() => setTela(6)}>
                                 Proteção Cerâmica
                             </Link>
+
                         </div>
 
-                        {/* Renderiza o componente correspondente ao serviço selecionado */}
                         <div className={styles.container_servicos}>
-                        {
+                            {
                                 tela === 1 ?
                                     <Servico1 />
                                     : tela === 2 ?
@@ -79,61 +73,48 @@ export default function Servicos() {
                                                         <Servico6 />
                                                         : <></>
                             }
+
                         </div>
 
-                        {/* Renderiza informações sobre os serviços em formato de cards para dispositivos móveis */}
                         <div className={styles.container_servicosMobile}>
-                            {/* Card para Polimento */}
+
                             <div className={`${styles.servico} ${styles.um}`}>
                                 <p>Polimento</p>
                                 <div className={styles.contentText}>
-                                    Revitalize o brilho e a profundidade da cor do seu veículo...
+                                    Revitalize o brilho e a profundidade da cor do seu veículo com nosso serviço de polimento e cristalização. Removemos micro-riscos, manchas e marcas superficiais, aplicando uma camada de proteção que prolonga o efeito visual e protege contra agentes externos, como raios UV e poluição.
                                 </div>
                             </div>
-
-                            {/* Card para Higienização */}
                             <div className={`${styles.servico} ${styles.dois}`}>
                                 <p>Higienização</p>
                                 <div className={styles.contentText}>
-                                    Mantenha o interior do seu carro sempre limpo e agradável...
-                                </div>
+                                    Mantenha o interior do seu carro sempre limpo e agradável. Nosso serviço de higienização interna inclui a limpeza profunda de estofados, carpetes, painéis e portas, utilizando produtos que eliminam odores, manchas e sujeira, garantindo um ambiente fresco e saudável para você e seus passageiros.</div>
                             </div>
-
-                            {/* Card para Envelopamento */}
                             <div className={`${styles.servico} ${styles.tres}`}>
                                 <p>Envelopamento</p>
                                 <div className={styles.contentText}>
-                                    Dê uma nova cara ao seu carro com o nosso serviço...
-                                </div>
+                                    Dê uma nova cara ao seu carro com o nosso serviço de envelopamento automotivo. Oferecemos uma ampla variedade de cores e acabamentos, incluindo fosco, brilhante e metálico. Além de alterar a estética do veículo, o envelopamento protege a pintura original contra arranhões e desgaste.</div>
                             </div>
-
-                            {/* Outros serviços seguem o mesmo padrão */}
                             <div className={`${styles.servico} ${styles.quatro}`}>
                                 <p>Vitrificação</p>
                                 <div className={styles.contentText}>
-                                    Melhore a visibilidade e segurança ao dirigir...
-                                </div>
+                                    Melhore a visibilidade e segurança ao dirigir com nosso tratamento de vitrificação de vidros. Criamos uma camada repelente de água e sujeira sobre o para-brisa e vidros laterais, facilitando a remoção de detritos e garantindo uma visão clara em qualquer condição climática.</div>
                             </div>
                             <div className={`${styles.servico} ${styles.cinco}`}>
                                 <p>Pintura</p>
                                 <div className={styles.contentText}>
-                                    Elimine imperfeições, riscos profundos e manchas...
-                                </div>
+                                    Elimine imperfeições, riscos profundos e manchas na pintura com nosso serviço de correção. Utilizamos técnicas avançadas para restaurar a superfície original do seu veículo, garantindo um acabamento impecável e duradouro, sem a necessidade de repintura completa.</div>
                             </div>
                             <div className={`${styles.servico} ${styles.seis}`}>
                                 <p>Proteção Cerâmica</p>
                                 <div className={styles.contentText}>
-                                    Proteja a pintura do seu carro com nosso serviço...
-                                </div>
+                                    Proteja a pintura do seu carro com nosso serviço de aplicação de proteção cerâmica. Esse revestimento cria uma barreira resistente contra contaminantes, UV, e desgaste, além de oferecer um brilho duradouro. Ideal para quem deseja preservar a beleza e valor do veículo por mais tempo.</div>
                             </div>
-
                             <h2>Para conhecer todos os serviços, cadastre-se</h2>
                         </div>
                     </div>
                 </section>
             </main>
 
-            {/* Componente de rodapé comum em todas as páginas */}
             <Footer />
         </>
     );

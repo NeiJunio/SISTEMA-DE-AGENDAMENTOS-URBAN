@@ -1,21 +1,17 @@
+
 import React from 'react';
-import styles from './page.module.css'; // Importa os estilos específicos para esta página
+import styles from './page.module.css';
 
 const Termos = () => {
     return (
         <>
-            {/* Cabeçalho da página */}
             <header className={styles.header}>
-                {/* Logotipo no cabeçalho, estilizado através da classe logo */}
                 <span className={styles.logo}></span>
             </header>
 
-            {/* Container principal para todo o conteúdo da página */}
             <div className={styles.container}>
-                {/* Título principal da página */}
                 <h1 className={styles.titulo}>Termos, Políticas e Referências</h1>
 
-                {/* Seção: Política de Privacidade */}
                 <section className={styles.section}>
                     <h2>Política de Privacidade</h2>
                     <p>
@@ -26,7 +22,6 @@ const Termos = () => {
                     </p>
                 </section>
 
-                {/* Seção: Política de Segurança */}
                 <section className={styles.section}>
                     <h2>Política de Segurança</h2>
                     <p>
@@ -36,7 +31,6 @@ const Termos = () => {
                     </p>
                 </section>
 
-                {/* Seção: Uso de Cookies */}
                 <section className={styles.section}>
                     <h2>Uso de Cookies</h2>
                     <p>
@@ -48,7 +42,6 @@ const Termos = () => {
                     </p>
                 </section>
 
-                {/* Seção: Referências e Fontes */}
                 <section className={styles.section}>
                     <h2>Referências e Fontes</h2>
                     <p>
@@ -58,8 +51,9 @@ const Termos = () => {
                     </p>
                 </section>
             </div>
+
         </>
     );
 };
 
-export default Termos; // Exporta o componente Termos para uso em outras partes do aplicativo
+export default Termos;

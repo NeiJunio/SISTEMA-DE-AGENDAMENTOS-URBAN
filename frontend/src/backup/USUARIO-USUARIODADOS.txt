@@ -1,88 +1,77 @@
 import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 
-import api from "@/services/api"; // Importa o serviço de API para realizar requisições ao backend.
+import api from "@/services/api";
 
-import { IoMdEyeOff, IoMdEye } from "react-icons/io"; // Importa ícones para alternar a visibilidade da senha.
-import Swal from "sweetalert2"; // Biblioteca para exibir modais de alerta e mensagens ao usuário.
-import InputMask from "react-input-mask"; // Biblioteca para aplicar máscaras nos campos de entrada (e.g., CPF).
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
+import Swal from "sweetalert2";
+import InputMask from "react-input-mask";
 
 export default function DadosDoUsuario() {
-    const [meusDados, setMeusDados] = useState([]); // Armazena os dados do usuário.
-    const [isEditing, setIsEditing] = useState(false); // Controla se o formulário está no modo de edição.
-    const [showPassword, setShowPassword] = useState(false); // Controla a visibilidade do campo de senha.
-    const [originalCpf, setOriginalCpf] = useState(''); // Armazena o CPF original para comparações.
-    const [originalEmail, setOriginalEmail] = useState(''); // Armazena o e-mail original para comparações.
-    const [userId, setUserId] = useState(null); // Armazena o ID do usuário logado.
+    const [meusDados, setMeusDados] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [originalCpf, setOriginalCpf] = useState('');
+    const [originalEmail, setOriginalEmail] = useState('');
+    const [userId, setUserId] = useState(null);
 
     const sexoMap = {
         0: 'Feminino',
         1: 'Masculino',
         2: 'Outro'
-    }; // Mapeia os valores numéricos de sexo para strings legíveis.
+    };
 
     useEffect(() => {
-        // Recupera o ID do usuário armazenado no localStorage ao carregar o componente.
         const storedUserId = localStorage.getItem('user');
         if (storedUserId) {
-            const parsedUser = JSON.parse(storedUserId); // Converte a string armazenada para um objeto.
-            setUserId(parsedUser?.id || null); // Define o ID do usuário ou null se não encontrado.
+            const parsedUser = JSON.parse(storedUserId);
+            setUserId(parsedUser?.id || null);
         }
     }, []);
 
     useEffect(() => {
-        // Chama a função para listar os dados do usuário apenas quando o ID estiver definido.
         if (userId) {
-            listarDadosUsuario(); // Função para buscar os dados do usuário no backend.
+            listarDadosUsuario();
         }
-    }, [userId]); // Executa o efeito apenas quando o `userId` muda.
+    }, [userId]); 
 
     const listarDadosUsuario = async () => {
-        if (!userId) return; // Verifica se o ID do usuário está disponível antes de prosseguir.
+        if (!userId) return;
 
         try {
-            // Faz uma requisição GET para buscar os dados do usuário com base no ID fornecido.
             const response = await api.get(`/usuarios/dadosUsuario/${userId}`);
-            setMeusDados(response.data.dados); // Armazena os dados do usuário no estado.
+            setMeusDados(response.data.dados);
 
-            // Salva o CPF e o email originais em estados separados para possíveis comparações.
             setOriginalCpf(response.data.dados.usu_cpf);
             setOriginalEmail(response.data.dados.usu_email);
 
         } catch (error) {
-            // Exibe no console uma mensagem de erro caso a requisição falhe.
             console.error("Erro ao buscar dados do usuário:", error);
         }
     };
 
     const togglePasswordVisibility = () => {
-        // Alterna a visibilidade da senha entre oculto e visível.
         setShowPassword(!showPassword);
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target; // Captura o nome e valor do campo que foi alterado.
-
-        // Converte o valor para número apenas se o campo for `usu_sexo`.
+        const { name, value } = e.target;
         const newValue = name === 'usu_sexo' ? parseInt(value) : value;
 
-        // Atualiza o estado `meusDados` com o novo valor do campo modificado.
         setMeusDados((prevState) => ({
-            ...prevState, // Mantém os valores anteriores.
-            [name]: newValue, // Atualiza apenas o campo modificado.
+            ...prevState,
+            [name]: newValue,
         }));
     };
-
+    
     const handleEdit = () => {
-        // Ativa o modo de edição, permitindo alterações nos campos do formulário.
         setIsEditing(true);
     };
 
     const handleCancel = () => {
-        // Exibe um modal de confirmação antes de cancelar as alterações.
         Swal.fire({
             title: "Deseja Cancelar?",
-            text: "As informações não serão salvas", // Alerta que as mudanças serão descartadas.
+            text: "As informações não serão salvas",
             icon: "warning",
             iconColor: "orange",
             showCancelButton: true,
@@ -91,10 +80,9 @@ export default function DadosDoUsuario() {
             cancelButtonText: "Cancelar",
             confirmButtonText: "Confirmar",
             reverseButtons: true,
-            backdrop: "rgba(0,0,0,0.7)", // Escurece o fundo enquanto o modal está ativo.
+            backdrop: "rgba(0,0,0,0.7)",
         }).then((result) => {
             if (result.isConfirmed) {
-                // Exibe uma mensagem de sucesso confirmando o cancelamento.
                 Swal.fire({
                     title: "Cancelado!",
                     text: "As alterações foram canceladas.",
@@ -102,105 +90,95 @@ export default function DadosDoUsuario() {
                     iconColor: "rgb(40, 167, 69)",
                     confirmButtonColor: "rgb(40, 167, 69)",
                 }).then(() => {
-                    setIsEditing(false); // Desativa o modo de edição.
-                    listarDadosUsuario(); // Recarrega os dados originais do usuário.
-                    setShowPassword(false); // Oculta a senha após o cancelamento.
+                    setIsEditing(false);
+                    listarDadosUsuario();
+                    setShowPassword(false);
                 });
             }
         });
     };
 
     const validarCPF = async (cpf) => {
-        // Expressão regular para verificar o formato do CPF
         const cpfRegex = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
 
-        // Verifica se o CPF está no formato correto
         if (!cpfRegex.test(cpf)) {
             return 'CPF inválido.';
         }
 
-        // Remove os caracteres não numéricos do CPF
         const numbersOnly = cpf.replace(/[^\d]/g, '');
 
-        // Verifica se o CPF tem exatamente 11 dígitos e se não é uma sequência de números repetidos
         if (numbersOnly.length !== 11 || /^(\d)\1+$/.test(numbersOnly)) {
             return 'CPF inválido.';
         }
 
-        // Validação do primeiro dígito verificador do CPF
         let soma = 0;
         let resto;
 
         for (let i = 1; i <= 9; i++) {
-            soma += parseInt(numbersOnly.substring(i - 1, i)) * (11 - i); // Cálculo de soma ponderada
+            soma += parseInt(numbersOnly.substring(i - 1, i)) * (11 - i);
         }
         resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0; // Ajuste de resto
+        if (resto === 10 || resto === 11) resto = 0;
         if (resto !== parseInt(numbersOnly.substring(9, 10))) {
             return 'CPF inválido.';
         }
 
-        // Validação do segundo dígito verificador do CPF
         soma = 0;
         for (let i = 1; i <= 10; i++) {
-            soma += parseInt(numbersOnly.substring(i - 1, i)) * (12 - i); // Novo cálculo de soma ponderada
+            soma += parseInt(numbersOnly.substring(i - 1, i)) * (12 - i);
         }
         resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0; // Ajuste de resto
+        if (resto === 10 || resto === 11) resto = 0;
         if (resto !== parseInt(numbersOnly.substring(10, 11))) {
             return 'CPF inválido.';
         }
-
-        // Verificação de CPF no banco de dados (não duplicado)
         try {
             const response = await api.post('/usuarios/verificarCpf', { usu_cpf: cpf });
             if (response.data.sucesso && response.data.dados) {
-                return 'CPF indisponível'; // CPF já está registrado no sistema
+                return 'CPF indisponível';
             }
         } catch (error) {
             console.error('Erro na verificação do CPF:', error);
-            return 'Ocorreu um erro ao verificar o CPF. Por favor, tente novamente.'; // Caso haja erro na API
+            return 'Ocorreu um erro ao verificar o CPF. Por favor, tente novamente.';
         }
 
-        return null; // CPF válido
+        return null;
     };
 
-    // Função para verificar se o e-mail tem formato válido usando expressão regular
     function checkEmail(email) {
-        return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+        return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            email
+        );
     }
 
     const validaEmail = async (usuario) => {
-        const email = usuario.usu_email.trim(); // Remove espaços antes e depois do e-mail
-
-        // Verifica se o e-mail não foi preenchido
+        const email = usuario.usu_email.trim();
+    
         if (!email) {
             return 'O e-mail do usuário é obrigatório.';
-        } else if (!checkEmail(email)) { // Verifica se o e-mail é válido
+        } else if (!checkEmail(email)) {
             return 'Insira um e-mail válido.';
         }
-
-        // Verificação de duplicidade de e-mail no banco de dados
+    
         try {
-            const response = await api.post('/usuarios/verificarEmail', {
-                usu_email: email,
-                usu_id: usuario.usu_id // Enviar o ID do usuário para verificar duplicidade
+            const response = await api.post('/usuarios/verificarEmail', { 
+                usu_email: email, 
+                usu_id: usuario.usu_id // Enviar o ID do usuário
             });
-
+    
             if (response.data.sucesso && response.data.dados) {
-                return 'Email já está cadastrado.'; // E-mail já existe no sistema
+                return 'Email já está cadastrado.';
             }
         } catch (error) {
             console.error('Erro na verificação do email:', error);
-            return 'Ocorreu um erro ao verificar o email. Por favor, tente novamente.'; // Caso haja erro na API
+            return 'Ocorreu um erro ao verificar o email. Por favor, tente novamente.';
         }
-        return null; // E-mail válido e não duplicado
+        return null;
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Previne o comportamento padrão do formulário
+        e.preventDefault();
 
-        // Valida CPF caso tenha sido alterado
         if (meusDados.usu_cpf !== originalCpf) {
             const cpfError = await validarCPF(meusDados.usu_cpf);
             if (cpfError) {
@@ -208,13 +186,12 @@ export default function DadosDoUsuario() {
                     icon: "error",
                     title: "Erro",
                     iconColor: "#d33",
-                    text: cpfError, // Exibe o erro de CPF
+                    text: cpfError,
                 });
-                return; // Impede o envio do formulário se CPF for inválido
+                return; 
             }
         }
-
-        // Valida e-mail caso tenha sido alterado
+        
         if (meusDados.usu_email !== originalEmail) {
             const emailError = await validaEmail(meusDados);
             if (emailError) {
@@ -222,13 +199,12 @@ export default function DadosDoUsuario() {
                     icon: "error",
                     title: "Erro",
                     iconColor: "#d33",
-                    text: emailError, // Exibe o erro de e-mail
+                    text: emailError,
                 });
-                return; // Impede o envio do formulário se o e-mail for inválido
+                return;
             }
         }
 
-        // Envio dos dados para a API para atualização
         try {
             const response = await api.patch(`/usuarios/${meusDados.usu_id}`, meusDados);
 
@@ -240,11 +216,11 @@ export default function DadosDoUsuario() {
                     confirmButtonColor: "rgb(40, 167, 69)",
                     iconColor: "rgb(40, 167, 69)",
                 });
-                setIsEditing(false); // Finaliza o processo de edição
+                setIsEditing(false); 
             } else {
                 Swal.fire({
                     title: "Erro",
-                    text: "Falha ao salvar os dados.", // Exibe erro caso a atualização falhe
+                    text: "Falha ao salvar os dados.",
                     icon: "error",
                     confirmButtonColor: "rgb(40, 167, 69)",
                 });
@@ -252,11 +228,11 @@ export default function DadosDoUsuario() {
         } catch (error) {
             Swal.fire({
                 title: "Erro",
-                text: "Ocorreu um erro ao salvar os dados.", // Erro ao salvar os dados
+                text: "Ocorreu um erro ao salvar os dados.",
                 icon: "error",
                 confirmButtonColor: "rgb(40, 167, 69)",
             });
-            console.error("Erro ao salvar dados:", error); // Registra o erro no console
+            console.error("Erro ao salvar dados:", error);
         }
     };
 
@@ -449,7 +425,7 @@ export default function DadosDoUsuario() {
 
                     </form>
                     <div className={styles.footer_form}>
-                        {!isEditing ? (
+                        {!isEditing ? ( 
                             <button type="button" onClick={handleEdit} className={styles.button_edit}>Editar</button>
                         ) : (
                             <>

@@ -1,7 +1,14 @@
 import React from 'react';
 import styles from './index.module.css';
 
-export default function FormServicos({ selectedServico, setSelectedServico, isViewing, isEditing, handleSubmit, categoriasServ }) {
+export default function FormServicos({
+    selectedServico,
+    setSelectedServico,
+    isViewing,
+    isEditing,
+    handleSubmit,
+    categoriasServ
+}) {
 
     const isDisabled = isViewing || isEditing;
 

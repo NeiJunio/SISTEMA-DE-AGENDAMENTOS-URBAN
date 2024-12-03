@@ -1,95 +1,94 @@
 'use client'
 
-import Image from "next/image"; // Importação do componente Image do Next.js para otimização de imagens.
-import Link from "next/link"; // Importação do Link para navegação entre páginas no Next.js.
-import styles from "./page.module.css"; // Importação do arquivo CSS que contém os estilos para a página.
+import Image from "next/image";
+import Link from "next/link";
+import styles from "./page.module.css";
 
-import Header from "@/components/header"; // Importação do componente Header para a seção de navegação do site.
-import Footer from "@/components/footer"; // Importação do componente Footer para o rodapé da página.
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
-import CarrosselInicial from "@/components/carrosselPage"; // Importação do carrossel para a parte inicial da página.
-import CarrosselMobile from "@/components/carrosselMobile"; // Importação do carrossel para dispositivos móveis.
-import CarrosselMobileMedium from "@/components/carrosselMobileMedium"; // Importação do carrossel para dispositivos móveis de tamanho médio.
-import CarrosselEquipe from "@/components/carrosselEquipe"; // Importação do carrossel para exibir a equipe.
-import CarrosselEquipeMobile from "@/components/carrosselEquipeMobile"; // Importação do carrossel para a equipe em dispositivos móveis.
+import CarrosselInicial from "@/components/carrosselPage";
+import CarrosselMobile from "@/components/carrosselMobile";
+import CarrosselMobileMedium from "@/components/carrosselMobileMedium";
+import CarrosselEquipe from "@/components/carrosselEquipe";
+import CarrosselEquipeMobile from "@/components/carrosselEquipeMobile";
 
 export default function Home() {
     return (
-        <html> {/* Início do elemento HTML principal */}
-            <body> {/* Corpo da página */}
-                <Header /> {/* Cabeçalho da página, geralmente contém o menu de navegação */}
+        <html>
+            <body>
 
-                <section className={styles.section}> {/* Seção principal da página com o carrossel e o texto inicial */}
+                <Header />
 
-                    <div className={styles.carrosselInicial}> {/* Carrossel exibido na versão desktop */}
-                        <CarrosselInicial /> {/* Componente do carrossel principal */}
+                <section className={styles.section}>
+
+                    <div className={styles.carrosselInicial}>
+                        <CarrosselInicial />
                     </div>
-                    <div className={styles.carrosselMobile}> {/* Carrossel exibido em dispositivos móveis */}
-                        <CarrosselMobile /> {/* Componente do carrossel para mobile */}
+                    <div className={styles.carrosselMobile}>
+                        <CarrosselMobile />
                     </div>
-                    <div className={styles.CarrosselMobileMedium}> {/* Carrossel exibido em dispositivos móveis de médio porte */}
-                        <CarrosselMobileMedium /> {/* Componente do carrossel para dispositivos móveis de tamanho médio */}
+                    <div className={styles.CarrosselMobileMedium}>
+                        <CarrosselMobileMedium />
                     </div>
 
-                    <div className={styles.backgroundSection}> {/* Seção com fundo para título e descrição */}
-                        <h2 className={styles.sectionTitle1}>Seu carro na melhor performance!</h2> {/* Título da seção */}
-                        <p className={styles.sectionContent1}>Revele a essência do seu automóvel</p> {/* Descrição da seção */}
+                    <div className={styles.backgroundSection}>
+                        <h2 className={styles.sectionTitle1}>Seu carro na melhor performance!</h2>
+                        <p className={styles.sectionContent1}>Revele a essência do seu automóvel</p>
                     </div>
                 </section>
 
-                <main className={styles.main}> {/* Seção principal do conteúdo da página */}
+                <main className={styles.main}>
 
-                    <div className={styles.divider}></div> {/* Divisor entre as seções */}
+                    <div className={styles.divider}></div>
 
-                    <section className={styles.section2}> {/* Seção sobre os serviços oferecidos */}
-                        <div className={styles.section2Image}> {/* Div que contém a imagem dos serviços */}
+                    <section className={styles.section2}>
+                        <div className={styles.section2Image}>
                             <Image
-                                src='/servicomecanico1233.png' // Caminho para a imagem
-                                alt="Imagem de serviço" // Texto alternativo para a imagem
-                                width={500} // Largura da imagem
-                                height={520} // Altura da imagem
-                                className={styles.imagememsi} // Classe CSS aplicada à imagem
-                            />
+                                src='/servicomecanico1233.png'
+                                alt="Imagem de serviço"
+                                width={500}
+                                height={520}
+                                className={styles.imagememsi}/>
                         </div>
-                        <div className={styles.section2Content}> {/* Conteúdo da seção de serviços */}
-                            <h2 className={styles.section2Title}>Nossos Serviços</h2> {/* Título dos serviços */}
-                            <p className={styles.section2Description}> {/* Descrição dos serviços */}
+                        <div className={styles.section2Content}>
+                            <h2 className={styles.section2Title}>Nossos Serviços</h2>
+                            <p className={styles.section2Description}>
                                 Oferecemos uma ampla gama de serviços para garantir que seu veículo esteja sempre em ótimo estado.
                                 Desde manutenção preventiva até reparos complexos, temos a expertise que você precisa.
                             </p>
                             <div>
-                                <Link href="/telas/servicos"> {/* Link para a página de serviços */}
-                                    <button className={styles.section2Button}>Veja mais</button> {/* Botão para ver mais serviços */}
+                                <Link href="/telas/servicos">
+                                    <button className={styles.section2Button}>Veja mais</button>
                                 </Link>
                             </div>
                         </div>
                     </section>
 
-                    <div className={styles.divider}></div> {/* Outro divisor */}
+                    <div className={styles.divider}></div>
 
-                    <section className={styles.secao3}> {/* Seção sobre a equipe */}
-                        <div className={styles.carrouselEquipe}> {/* Carrossel da equipe */}
-                            <CarrosselEquipe /> {/* Exibe os membros da equipe */}
+                    <section className={styles.secao3}>
+                        <div className={styles.carrouselEquipe}>
+                            <CarrosselEquipe />
                         </div>
-                        <div className={styles.carrouselEquipeMobile}> {/* Carrossel da equipe para dispositivos móveis */}
-                            <CarrosselEquipeMobile /> {/* Exibe os membros da equipe em dispositivos móveis */}
+                        <div className={styles.carrouselEquipeMobile}>
+                            <CarrosselEquipeMobile />
                         </div>
                     </section>
 
-                    <div className={styles.divider}></div> {/* Divisor entre as seções */}
+                    <div className={styles.divider}></div>
 
-                    <section className={styles.section4}> {/* Seção de perguntas frequentes */}
-                        <p className={styles.title_questions}>Perguntas frequentes</p> {/* Título da seção de perguntas */}
-                        <div className={styles.container_questions}> {/* Contêiner que segura as perguntas */}
+                    <section className={styles.section4}>
+                        <p className={styles.title_questions}>Perguntas frequentes</p>
+                        <div className={styles.container_questions}>
 
-                            {/* Cada bloco de 'details' é uma pergunta com uma resposta expandível */}
-                            <details className={styles.details}> 
-                                <summary className={styles.summary}> {/* Título da pergunta */}
+                            <details className={styles.details}>
+                                <summary className={styles.summary}>
                                     <div className={styles.summary_content}>
                                         Preciso agendar um horário para realizar serviços de estética no meu veículo?
                                     </div>
-                                    <div className={styles.boxArrow}> {/* Ícone da seta */}
-                                        <span className={styles.arrow_down}></span> {/* Seta para expandir a resposta */}
+                                    <div className={styles.boxArrow}>
+                                        <span className={styles.arrow_down}></span>
                                     </div>
                                 </summary>
                                 <div className={styles.description}>

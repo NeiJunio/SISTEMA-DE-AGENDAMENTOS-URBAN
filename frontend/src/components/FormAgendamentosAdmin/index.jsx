@@ -6,7 +6,13 @@ import api from '@/services/api';
 
 import Swal from 'sweetalert2';
 
-export default function FormAgendamentosAdmin({ selectedAgend, setSelectedAgend, isViewing, handleSubmit, isEditing }) {
+export default function FormAgendamentosAdmin({
+    selectedAgend,
+    setSelectedAgend,
+    isViewing,
+    handleSubmit,
+    isEditing
+}) {
 
     const [veiculosUsuario, setVeiculosUsuario] = useState([]);
     const [servicos, setServicos] = useState([]);
