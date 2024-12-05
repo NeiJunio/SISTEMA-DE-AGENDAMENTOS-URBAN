@@ -1,5 +1,7 @@
 # **URBAN - Estética Automotiva (Sistema de Agendamentos)**
 
+![Capa do Projeto](frontend/public/pixelcut-export.jpeg)
+
 ## **Resumo**
 O **URBAN Estética Automotiva** é um sistema web desenvolvido para otimizar o agendamento de serviços na empresa **Urban Estética Automotiva**, mas com a flexibilidade de ser adaptado para outras empresas do ramo de estética automotiva. O sistema proporciona uma experiência ágil e conveniente tanto para clientes quanto para administradores, automatizando o processo de agendamento e eliminando a necessidade de atendimentos manuais. Além de permitir a gestão de agendamentos, usuários, veículos e serviços, o sistema conta com um painel gerencial que facilita a administração. Durante o desenvolvimento, foram superados desafios como a implementação de validações de dados, responsividade e privacidade dos usuários, resultando em uma solução eficiente e adaptável às necessidades de empresas do setor.
 
