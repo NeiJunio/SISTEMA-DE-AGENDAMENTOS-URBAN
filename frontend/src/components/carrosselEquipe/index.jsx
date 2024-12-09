@@ -1,53 +1,61 @@
 'use client'
 
-import Image from 'next/image';
-import styles from "./index.module.css";
+import Image from 'next/image'; // Importa o componente de imagem do Next.js para otimização de imagens
+import styles from "./index.module.css"; // Importa o arquivo CSS com os estilos específicos deste componente
 
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel'; // Importa o componente de carrossel da biblioteca 'react-responsive-carousel'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Importa os estilos padrão do carrossel
 
+// Define o componente CarrosselEquipe
 export default function CarrosselEquipe() {
     return (
+        // Wrapper do carrossel estilizado com uma classe do CSS
         <div className={styles.carouselWrapper}>
+            {/* Título da seção */}
             <h2 className={styles.sectionHeading}>Nossa Equipe</h2>
+            
+            {/* Componente do carrossel com várias propriedades configuradas */}
             <Carousel
-                showArrows={true}
-                showThumbs={false}
-                infiniteLoop={true}
-                autoPlay={true}
-                interval={7000}
-                showStatus={false}
-                stopOnHover={true}
-                className={styles.carousel}
-                renderIndicator={false}
+                showArrows={true} // Exibe setas de navegação
+                showThumbs={false} // Oculta as miniaturas
+                infiniteLoop={true} // Habilita o loop infinito
+                autoPlay={true} // Ativa a reprodução automática
+                interval={7000} // Define o intervalo de 7 segundos entre slides
+                showStatus={false} // Oculta o indicador de status
+                stopOnHover={true} // Pausa a reprodução automática ao passar o mouse
+                className={styles.carousel} // Aplica estilos personalizados
+                renderIndicator={false} // Oculta os indicadores de navegação
                 renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
+                    // Renderiza a seta personalizada para navegação anterior
                     hasPrev && (
                         <button
                             type="button"
                             onClick={clickHandler}
                             className={styles.customPrevArrow}
-                            aria-label={labelPrev}
+                            aria-label={labelPrev} // Acessibilidade: descrição da seta
                         >
-                            &#9664;
+                            &#9664; {/* Ícone da seta para a esquerda */}
                         </button>
                     )
                 }
                 renderArrowNext={(clickHandler, hasNext, labelNext) =>
+                    // Renderiza a seta personalizada para navegação próxima
                     hasNext && (
                         <button
                             type="button"
                             onClick={clickHandler}
                             className={styles.customNextArrow}
-                            aria-label={labelNext}
+                            aria-label={labelNext} // Acessibilidade: descrição da seta
                         >
-                            &#9654;
+                            &#9654; {/* Ícone da seta para a direita */}
                         </button>
                     )
                 }
             >
-
+                {/* Primeiro conjunto de slides com informações da equipe */}
                 <div className={styles.employeeContainer}>
                     <div className={styles.employeeCard}>
+                        {/* Imagem do colaborador com otimização */}
                         <Image
                             src='/mecanico.png'
                             alt="Carlos Silva"
@@ -55,6 +63,7 @@ export default function CarrosselEquipe() {
                             height={450}
                             className={styles.employeeImage}
                         />
+                        {/* Informações do colaborador */}
                         <h3 className={styles.employeeName}>Carlos Silva</h3>
                         <p className={styles.employeePosition}>Mecânico Chefe</p>
                         <p className={styles.employeeDescription}>Especialista em diagnósticos complexos.</p>
@@ -74,6 +83,7 @@ export default function CarrosselEquipe() {
                     </div>
                 </div>
 
+                {/* Segundo conjunto de slides */}
                 <div className={styles.employeeContainer}>
                     <div className={styles.employeeCard}>
                         <Image
@@ -102,11 +112,12 @@ export default function CarrosselEquipe() {
                     </div>
                 </div>
 
+                {/* Terceiro conjunto de slides */}
                 <div className={styles.employeeContainer}>
                     <div className={styles.employeeCard}>
                         <Image
                             src='/mecanico3.png'
-                            alt="Marcos Pereira"
+                            alt="Cléber Sampaio"
                             width={450}
                             height={450}
                             className={styles.employeeImage}
@@ -119,7 +130,7 @@ export default function CarrosselEquipe() {
                     <div className={styles.employeeCard}>
                         <Image
                             src='/mecanico4.png'
-                            alt="imagem"
+                            alt="João Silva"
                             width={650}
                             height={650}
                             className={styles.employeeImage}

@@ -1,50 +1,55 @@
-import React from 'react';
-import styles from './index.module.css';
+import React from 'react'; // Importa o React para criar o componente
+import styles from './index.module.css'; // Importa os estilos do arquivo CSS do componente
 
-import InputMask from "react-input-mask";
+import InputMask from "react-input-mask"; // Importa a biblioteca InputMask para formatar entradas de texto, como máscaras
 
 export default function FormVeiculo({
-    selectedVeic,
-    setSelectedVeic,
-    isViewing,
-    isEditing,
-    handleSubmit,
-    categorias,
-    marcas,
-    listarMarcas,
-    modelos,
-    listarModelos,
-    placaErro,
-    anoErro,
-    handlePlacaChange
+    selectedVeic, // Objeto contendo os dados do veículo selecionado
+    setSelectedVeic, // Função para atualizar o estado do veículo selecionado
+    isViewing, // Flag para indicar se o formulário está em modo de visualização
+    isEditing, // Flag para indicar se o formulário está em modo de edição
+    handleSubmit, // Função para lidar com o envio do formulário
+    categorias, // Lista de categorias disponíveis
+    marcas, // Lista de marcas filtradas com base na categoria selecionada
+    listarMarcas, // Função para listar marcas com base na categoria selecionada
+    modelos, // Lista de modelos filtrados com base na marca selecionada
+    listarModelos, // Função para listar modelos com base na marca selecionada
+    placaErro, // Mensagem de erro para validação da placa
+    anoErro, // Mensagem de erro para validação do ano
+    handlePlacaChange // Função para manipular alterações na placa do veículo
 }) {
 
-    const isDisabled = isViewing || isEditing;
+    const isDisabled = isViewing || isEditing; // Define se os campos do formulário estarão desabilitados com base no modo de visualização ou edição
 
+    // Manipula alterações no campo da placa, convertendo o valor para letras maiúsculas
     const handlePlacaInputChange = (e) => {
-        const placa = e.target.value.toUpperCase();
-        handlePlacaChange(placa);
+        const placa = e.target.value.toUpperCase(); // Converte o valor para letras maiúsculas
+        handlePlacaChange(placa); // Chama a função para atualizar o estado da placa
     };
 
+    // Manipula alterações no campo do ano do veículo
     const handleAnoChange = (e) => {
-        setSelectedVeic({ ...selectedVeic, veic_ano: e.target.value });
+        setSelectedVeic({ ...selectedVeic, veic_ano: e.target.value }); // Atualiza o ano do veículo no estado
     };
 
+    // Lida com o envio do formulário de maneira assíncrona
     const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        await handleSubmit(selectedVeic);
+        e.preventDefault(); // Previne o comportamento padrão do formulário (recarregar a página)
+        await handleSubmit(selectedVeic); // Envia os dados do veículo via a função handleSubmit
     };
 
+    // Manipula mudanças na categoria selecionada
     const handleCategoryChange = (e) => {
-        const catId = parseInt(e.target.value, 10);
-        setSelectedVeic({ ...selectedVeic, cat_id: catId });
-        listarMarcas(catId);
+        const catId = parseInt(e.target.value, 10); // Converte o ID da categoria para um número inteiro
+        setSelectedVeic({ ...selectedVeic, cat_id: catId }); // Atualiza a categoria no estado do veículo
+        listarMarcas(catId); // Lista as marcas correspondentes à categoria selecionada
     };
 
+    // Manipula mudanças na marca selecionada
     const handleMarcas = (e) => {
-        const marId = parseInt(e.target.value, 10);
-        setSelectedVeic({ ...selectedVeic, mar_id: marId });
-        listarModelos(marId);
+        const marId = parseInt(e.target.value, 10); // Converte o ID da marca para um número inteiro
+        setSelectedVeic({ ...selectedVeic, mar_id: marId }); // Atualiza a marca no estado do veículo
+        listarModelos(marId); // Lista os modelos correspondentes à marca selecionada
     };
 
     return (

@@ -1,56 +1,61 @@
-import React, { useState } from 'react';
-import styles from './index.module.css';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // Importação de hooks para gerenciar estados no componente.
+import styles from './index.module.css'; // Importação do arquivo CSS para estilização.
 
-import api from '@/services/api';
+import api from '@/services/api'; // Importação da instância da API para realizar chamadas ao backend.
 
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // Importação da biblioteca SweetAlert2 para exibir modais interativos.
 
-export default function FormAgendamentosAdmin({
-    selectedAgend,
-    setSelectedAgend,
-    isViewing,
-    handleSubmit,
-    isEditing
+export default function FormAgendamentos({
+    selectedAgend, // Objeto com os dados do agendamento selecionado.
+    setSelectedAgend, // Função para atualizar o agendamento selecionado.
+    isViewing, // Flag para determinar se está no modo de visualização.
+    handleSubmit, // Função para manipular o envio do formulário.
+    isEditing // Flag para determinar se está no modo de edição.
 }) {
 
-    const [veiculosUsuario, setVeiculosUsuario] = useState([]);
-    const [servicos, setServicos] = useState([]);
-    const [catServicos, setCatServicos] = useState([]);
-    const [selectedCategoria, setSelectedCategoria] = useState(selectedAgend?.cat_serv_id);
-    const [isServicoDisabled, setIsServicoDisabled] = useState(false);
-    const [agendServSituId, setAgendServSituId] = useState([]);
-    const [situServicoSelected, setSituServicoSelected] = useState(selectedAgend?.agend_serv_situ_id || '');
+    // Estados locais do componente
+    const [veiculosUsuario, setVeiculosUsuario] = useState([]); // Lista de veículos vinculados ao usuário.
+    const [servicos, setServicos] = useState([]); // Lista de serviços disponíveis para a categoria selecionada.
+    const [catServicos, setCatServicos] = useState([]); // Lista de categorias de serviços ativas.
+    const [selectedCategoria, setSelectedCategoria] = useState(selectedAgend?.cat_serv_id); // Categoria de serviço selecionada.
+    const [isServicoDisabled, setIsServicoDisabled] = useState(false); // Desabilita ou habilita o dropdown de serviços.
+    const [agendServSituId, setAgendServSituId] = useState([]); // Lista de situações possíveis para o serviço.
+    const [situServicoSelected, setSituServicoSelected] = useState(selectedAgend?.agend_serv_situ_id || ''); // Situação selecionada.
 
-    const isDisabled = isViewing || isEditing;
+    const isDisabled = isViewing || isEditing; // Desabilita campos dependendo dos modos de visualização ou edição.
 
     const agendSituacaoMap = {
         1: 'Pendente',
         2: 'Em andamento',
         3: 'Concluído',
         4: "Cancelado"
-    };
+    }; // Mapeamento de IDs de situação para os nomes correspondentes.
 
+    // Efeito para carregar categorias e situações ao montar o componente
     useEffect(() => {
-        ListarCategoriasServAtivas();
-        ListarAgendServSituId();
-    }, [])
+        ListarCategoriasServAtivas(); // Busca categorias de serviços ativas.
+        ListarAgendServSituId(); // Busca as situações possíveis de serviço.
+    }, []);
 
+    // Efeito para carregar os veículos do usuário ao mudar o usuário selecionado
     useEffect(() => {
-        ListarVeiculosUsuario();
-    }, [selectedAgend?.usu_id])
+        ListarVeiculosUsuario(); // Busca veículos vinculados ao usuário selecionado.
+    }, [selectedAgend?.usu_id]);
 
+    // Efeito para listar serviços ao selecionar uma categoria
     useEffect(() => {
         if (selectedCategoria) {
-            ListarServicos(selectedCategoria);
+            ListarServicos(selectedCategoria); // Busca serviços com base na categoria selecionada.
         }
-    }, [selectedCategoria])
+    }, [selectedCategoria]);
 
+    // Função para buscar serviços de uma categoria específica
     const ListarServicos = async (selectedCategoria) => {
         try {
             const response = await api.get(`/servicos/categoria/${selectedCategoria}`);
 
             if (response.data.sucesso === false && response.data.status === 200) {
+                // Exibe alerta se não houver serviços para a categoria.
                 Swal.fire({
                     title: 'Atenção!',
                     text: 'Nenhum serviço encontrado para essa categoria.',
@@ -58,26 +63,15 @@ export default function FormAgendamentosAdmin({
                     iconColor: '#f39c12',
                     confirmButtonColor: '#f39c12',
                 });
-
-                setServicos([]);
-                setServicoSelecionado(null);
-                setIsServicoDisabled(true);
-
+                setServicos([]); // Reseta a lista de serviços.
+                setServicoSelecionado(null); // Reseta o serviço selecionado.
+                setIsServicoDisabled(true); // Desabilita o dropdown de serviços.
             } else {
-                setServicos(response.data.dados || []);
-                setIsServicoDisabled(false);
+                setServicos(response.data.dados || []); // Atualiza a lista de serviços.
+                setIsServicoDisabled(false); // Habilita o dropdown de serviços.
             }
         } catch (error) {
             console.error("Erro ao buscar os serviços:", error);
-            if (error.response) {
-                console.error("Status da resposta:", error.response.status);
-                console.error("Dados da resposta:", error.response.data);
-            } else if (error.request) {
-                console.error("Erro na requisição (sem resposta):", error.request);
-            } else {
-                console.error("Erro desconhecido:", error.message);
-            }
-
             Swal.fire({
                 title: 'Erro!',
                 text: 'Não foi possível carregar os serviços.',
@@ -88,37 +82,23 @@ export default function FormAgendamentosAdmin({
         }
     };
 
+    // Função para buscar os veículos de um usuário específico
     const ListarVeiculosUsuario = async () => {
         if (selectedAgend?.usu_id) {
             try {
                 const response = await api.get(`/veiculoUsuario/usuario/${selectedAgend?.usu_id}`);
-                setVeiculosUsuario(response.data.dados || []);
+                setVeiculosUsuario(response.data.dados || []); // Atualiza a lista de veículos.
             } catch (error) {
                 console.error("Erro ao buscar veículos:", error);
             }
         }
     };
 
+    // Função para buscar as situações possíveis de serviço
     const ListarAgendServSituId = async () => {
         try {
             const response = await api.get('/agendaServicosSituacao');
-            setAgendServSituId(response.data.dados);
-        } catch (error) {
-            console.error("Erro ao buscar as categorias:", error);
-            Swal.fire({
-                title: 'Erro!',
-                text: 'Não foi possível buscar as categorias.',
-                icon: 'error',
-                iconColor: '#d33',
-                confirmButtonColor: '#d33',
-            });
-        }
-    }
-
-    const ListarCategoriasServAtivas = async () => {
-        try {
-            const response = await api.get('/categoriasServicosAtivas');
-            setCatServicos(response.data.dados);
+            setAgendServSituId(response.data.dados); // Atualiza a lista de situações.
         } catch (error) {
             console.error("Erro ao buscar as categorias:", error);
             Swal.fire({
@@ -131,6 +111,24 @@ export default function FormAgendamentosAdmin({
         }
     };
 
+    // Função para buscar categorias ativas de serviço
+    const ListarCategoriasServAtivas = async () => {
+        try {
+            const response = await api.get('/categoriasServicosAtivas');
+            setCatServicos(response.data.dados); // Atualiza a lista de categorias.
+        } catch (error) {
+            console.error("Erro ao buscar as categorias:", error);
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Não foi possível buscar as categorias.',
+                icon: 'error',
+                iconColor: '#d33',
+                confirmButtonColor: '#d33',
+            });
+        }
+    };
+
+    // Atualiza a categoria selecionada
     const handleCategoryChange = (e) => {
         const newCategoryId = e.target.value;
         setSelectedCategoria(newCategoryId);
@@ -143,9 +141,9 @@ export default function FormAgendamentosAdmin({
         }
     };
 
+    // Atualiza a situação selecionada do serviço
     const handleSituacaoServico = (e) => {
         const newSituacaoId = parseInt(e.target.value);
-
         setSituServicoSelected(newSituacaoId);
 
         if (setSelectedAgend) {
@@ -154,7 +152,7 @@ export default function FormAgendamentosAdmin({
                 agend_serv_situ_id: newSituacaoId,
             }));
         }
-    }
+    };
 
     return (
         <form id="agendForm" className={styles.form} onSubmit={handleSubmit}>

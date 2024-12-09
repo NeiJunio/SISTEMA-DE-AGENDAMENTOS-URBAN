@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
-import styles from './index.module.css';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // Importação de hooks para gerenciar estados no componente.
+import styles from './index.module.css'; // Importação do arquivo CSS para estilização.
 
-import api from '@/services/api';
+import api from '@/services/api'; // Importação da instância da API para realizar chamadas ao backend.
 
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // Importação da biblioteca SweetAlert2 para exibir modais interativos.
 
 export default function FormAgendamentos({
-    selectedAgend,
-    setSelectedAgend,
-    isViewing,
-    handleSubmit,
-    isEditing
+    selectedAgend, // Objeto com os dados do agendamento selecionado.
+    setSelectedAgend, // Função para atualizar o agendamento selecionado.
+    isViewing, // Flag para determinar se está no modo de visualização.
+    handleSubmit, // Função para manipular o envio do formulário.
+    isEditing // Flag para determinar se está no modo de edição.
 }) {
 
-    const [veiculos, setVeiculos] = useState([]);
-    const [servicos, setServicos] = useState([])
-    const [catServicos, setCatServicos] = useState([])
-    const [selectedCategoria, setSelectedCategoria] = useState(selectedAgend?.cat_serv_id);
-    const [isServicoDisabled, setIsServicoDisabled] = useState(false);
+    // Estados para armazenar dados dinâmicos do formulário.
+    const [veiculos, setVeiculos] = useState([]); // Lista de veículos vinculados ao usuário.
+    const [servicos, setServicos] = useState([]); // Lista de serviços filtrados por categoria.
+    const [catServicos, setCatServicos] = useState([]); // Lista de categorias de serviços ativas.
+    const [selectedCategoria, setSelectedCategoria] = useState(selectedAgend?.cat_serv_id); // Categoria selecionada no formulário.
+    const [isServicoDisabled, setIsServicoDisabled] = useState(false); // Flag para desativar o campo de serviços.
 
-    const isDisabled = isViewing || isEditing;
+    const isDisabled = isViewing || isEditing; // Flag para desativar todos os campos no modo de visualização ou edição.
+
+    // Mapeamento das situações do agendamento para exibição amigável.
     const agendSituacaoMap = {
         1: 'Pendente',
         2: 'Em andamento',
@@ -28,54 +30,60 @@ export default function FormAgendamentos({
         4: "Cancelado"
     };
 
+    // Carrega as categorias de serviços ativas ao montar o componente.
     useEffect(() => {
         ListarCategoriasServAtivas();
-    }, [])
+    }, []);
 
+    // Atualiza os serviços disponíveis ao alterar a categoria selecionada.
     useEffect(() => {
         if (selectedCategoria) {
             ListarServicos(selectedCategoria);
         }
-    }, [selectedCategoria])
+    }, [selectedCategoria]);
 
+    // Atualiza a categoria selecionada ao alterar o agendamento selecionado.
     useEffect(() => {
         if (selectedAgend) {
             setSelectedCategoria(selectedAgend.cat_serv_id || "");
         }
     }, [selectedAgend]);
 
+    // Carrega os veículos vinculados ao usuário do agendamento.
     useEffect(() => {
         const ListarVeiculosUsuario = async () => {
             if (selectedAgend?.usu_id) {
                 try {
                     const response = await api.get(`/veiculoUsuario/usuario/${selectedAgend.usu_id}`);
-                    setVeiculos(response.data.dados || []);
+                    setVeiculos(response.data.dados || []); // Atualiza o estado com os veículos retornados.
                 } catch (error) {
-                    console.error("Erro ao buscar veículos:", error);
+                    console.error("Erro ao buscar veículos:", error); // Log do erro em caso de falha.
                 }
             }
         };
         ListarVeiculosUsuario();
     }, [selectedAgend?.usu_id]);
 
+    // Manipula a alteração da categoria selecionada no formulário.
     const handleCategoryChange = (e) => {
-        const newCategoryId = e.target.value;
+        const newCategoryId = e.target.value; // Captura o ID da categoria selecionada.
         setSelectedCategoria(newCategoryId);
 
         if (setSelectedAgend) {
             setSelectedAgend((prevAgend) => ({
                 ...prevAgend,
-                cat_serv_id: newCategoryId,
+                cat_serv_id: newCategoryId, // Atualiza a categoria no objeto de agendamento.
             }));
         }
     };
 
+    // Função para buscar categorias de serviços ativas do backend.
     const ListarCategoriasServAtivas = async () => {
         try {
             const response = await api.get('/categoriasServicosAtivas');
-            setCatServicos(response.data.dados);
+            setCatServicos(response.data.dados); // Atualiza o estado com as categorias retornadas.
         } catch (error) {
-            console.error("Erro ao buscar as categorias:", error);
+            console.error("Erro ao buscar as categorias:", error); // Log do erro em caso de falha.
             Swal.fire({
                 title: 'Erro!',
                 text: 'Não foi possível buscar as categorias.',
@@ -86,11 +94,13 @@ export default function FormAgendamentos({
         }
     };
 
+    // Função para buscar serviços filtrados pela categoria selecionada.
     const ListarServicos = async (selectedCategoria) => {
         try {
             const response = await api.get(`/servicos/categoria/${selectedCategoria}`);
 
             if (response.data.sucesso === false && response.data.status === 200) {
+                // Exibe alerta caso não haja serviços para a categoria selecionada.
                 Swal.fire({
                     title: 'Atenção!',
                     text: 'Nenhum serviço encontrado para essa categoria.',
@@ -99,16 +109,16 @@ export default function FormAgendamentos({
                     confirmButtonColor: '#f39c12',
                 });
 
-                setServicos([]);
-                setServicoSelecionado(null);
-                setIsServicoDisabled(true);
+                setServicos([]); // Limpa os serviços exibidos.
+                setServicoSelecionado(null); // Reseta o serviço selecionado.
+                setIsServicoDisabled(true); // Desativa o campo de serviços.
 
             } else {
-                setServicos(response.data.dados || []);
-                setIsServicoDisabled(false);
+                setServicos(response.data.dados || []); // Atualiza o estado com os serviços retornados.
+                setIsServicoDisabled(false); // Ativa o campo de serviços.
             }
         } catch (error) {
-            console.error("Erro ao buscar os serviços:", error);
+            console.error("Erro ao buscar os serviços:", error); // Log detalhado em caso de erro.
 
             if (error.response) {
                 console.error("Status da resposta:", error.response.status);

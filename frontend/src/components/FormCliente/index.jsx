@@ -1,56 +1,61 @@
-import React, { useState } from 'react';
-import styles from './index.module.css';
+import React, { useState } from 'react'; // Importação do React e do hook useState para gerenciamento de estados.
+import styles from './index.module.css'; // Importação das classes de estilização CSS.
 
-import InputMask from "react-input-mask";
-import { IoMdEyeOff, IoMdEye } from "react-icons/io";
+import InputMask from "react-input-mask"; // Biblioteca para aplicar máscaras de entrada em campos.
+import { IoMdEyeOff, IoMdEye } from "react-icons/io"; // Importação de ícones de visibilidade de senha.
 
 export default function FormCliente({
-    selectedUser,
-    setSelectedUser,
-    senhaErro,
-    setSenhaErro,
-    focused,
-    handleFocus,
-    handleBlur,
-    validarSenha,
-    isViewing,
-    handleSubmit,
-    isEditing
+    selectedUser, // Objeto com os dados do cliente selecionado.
+    setSelectedUser, // Função para atualizar os dados do cliente selecionado.
+    senhaErro, // Mensagem de erro relacionada à senha.
+    setSenhaErro, // Função para atualizar os erros de senha.
+    focused, // Flag para determinar se o campo de senha está em foco.
+    handleFocus, // Função chamada quando o campo de senha ganha foco.
+    handleBlur, // Função chamada quando o campo de senha perde foco.
+    validarSenha, // Função para validar a senha inserida.
+    isViewing, // Flag para indicar se o formulário está no modo de visualização.
+    handleSubmit, // Função para manipular o envio do formulário.
+    isEditing // Flag para indicar se o formulário está no modo de edição.
 }) {
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [cpfExists, setCpfExists] = useState(false);
-    const [cpfChecked, setCpfChecked] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState('');
-    const isDisabled = isViewing || isEditing;
+    const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha.
+    const [cpfExists, setCpfExists] = useState(false); // Estado para verificar se o CPF já existe.
+    const [cpfChecked, setCpfChecked] = useState(false); // Estado para verificar se o CPF foi validado.
+    const [loading, setLoading] = useState(false); // Estado para controlar o carregamento de alguma operação.
+    const [errors, setErrors] = useState(''); // Estado para armazenar mensagens de erro gerais.
+    const isDisabled = isViewing || isEditing; // Define se os campos do formulário devem estar desabilitados.
 
+    // Mapeamento dos valores de sexo para exibição no formulário.
     const sexoMap = {
-        0: 'Feminino',
-        1: 'Masculino',
-        2: 'Outro'
+        0: 'Feminino', // Valor 0 corresponde ao sexo Feminino.
+        1: 'Masculino', // Valor 1 corresponde ao sexo Masculino.
+        2: 'Outro' // Valor 2 corresponde a Outro.
     };
 
+    // Alterna a visibilidade da senha entre texto e oculto.
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    // Manipula mudanças no campo de senha.
     const handleChangeSenha = (e) => {
-        const novaSenha = e.target.value;
-        setSelectedUser({ ...selectedUser, usu_senha: novaSenha });
+        const novaSenha = e.target.value; // Obtém o valor digitado no campo de senha.
+        setSelectedUser({ ...selectedUser, usu_senha: novaSenha }); // Atualiza o estado do usuário com a nova senha.
 
+        // Valida a senha se o campo estiver em foco.
         if (focused) {
-            const erros = validarSenha(novaSenha);
-            setSenhaErro(erros);
+            const erros = validarSenha(novaSenha); // Executa a validação da senha.
+            setSenhaErro(erros); // Atualiza o estado com os erros de validação.
         }
     };
 
+    // Manipula mudanças no campo de CPF.
     const handleCPFChange = (e) => {
-        const cpf = e.target.value;
-        setSelectedUser({ ...selectedUser, usu_cpf: cpf });
-        setCpfChecked(false);
-        setCpfExists(false);
-        setErrors('');
+        const cpf = e.target.value; // Obtém o valor digitado no campo de CPF.
+        setSelectedUser({ ...selectedUser, usu_cpf: cpf }); // Atualiza o estado do usuário com o CPF digitado.
+        setCpfChecked(false); // Reseta o estado indicando que o CPF ainda não foi validado.
+        setCpfExists(false); // Reseta o estado indicando que o CPF não existe.
+        setErrors(''); // Limpa quaisquer mensagens de erro relacionadas ao CPF.
     };
 
     return (

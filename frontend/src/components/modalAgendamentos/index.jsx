@@ -1,45 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.css';
+import React, { useState, useEffect } from 'react'; // Importa React e os hooks useState e useEffect
+import styles from './index.module.css'; // Importa os estilos CSS para o componente
 
-import api from '@/services/api';
+import api from '@/services/api'; // Importa o serviço de API para chamadas HTTP
 
-import { format, parseISO } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import Swal from 'sweetalert2';
+import { format, parseISO } from 'date-fns'; // Importa funções para manipulação de datas
+import { ptBR } from 'date-fns/locale'; // Importa o locale para formatação em português do Brasil
+import Swal from 'sweetalert2'; // Importa a biblioteca para exibir modais de alertas e confirmações
 
-const CalendarEventDetailsModal = ({ modalEvent, onClose, isEditable, isAdmin, agendamentosUsuario }) => {
-    const [agendSituacao, setAgendSituacao] = useState(null);
-    const [agendData, setAgendData] = useState('');
-    const [agendHorario, setAgendHorario] = useState('');
-    const [veicUsuId, setVeicUsuId] = useState('');
-    const [agendObserv, setAgendObserv] = useState('');
-    const [veicPlaca, setVeicPlaca] = useState('');
-    const [servNome, setServNome] = useState('');
+const CalendarEventDetailsModal = ({
+    modalEvent,
+    onClose,
+    isEditable,
+    isAdmin,
+}) => {
 
-    const situacaoMap = {
+    // Estados para armazenar os detalhes do agendamento
+    const [agendSituacao, setAgendSituacao] = useState(null); // Situação do agendamento
+    const [agendData, setAgendData] = useState(''); // Data do agendamento
+    const [agendHorario, setAgendHorario] = useState(''); // Horário do agendamento
+    const [veicUsuId, setVeicUsuId] = useState(''); // ID do veículo do usuário
+    const [agendObserv, setAgendObserv] = useState(''); // Observações do agendamento
+    const [veicPlaca, setVeicPlaca] = useState(''); // Placa do veículo
+    const [servNome, setServNome] = useState(''); // Nome do serviço
+
+     // Mapeamento de valores numéricos para nomes das situações do agendamento
+     const situacaoMap = {
         1: 'Pendente',
         2: 'Em andamento',
         3: 'Concluído',
         4: 'Cancelado'
     };
 
-    console.log("teste: ", agendamentosUsuario);
-    
-//----------------------------------------------------------------------------
-if (!modalEvent?._def?.extendedProps) {
-    return null; // Não renderiza nada enquanto as props não estão disponíveis
-}
+    //----------------------------------------------------------------------------
+     // Verifica se as propriedades do modal estão disponíveis antes de renderizar
+     if (!modalEvent?._def?.extendedProps) {
+        return null; // Não renderiza o componente se as props estão ausentes
+    }
+
+     // useEffect para atualizar os estados com os dados do evento modal
     useEffect(() => {
         if (modalEvent) {
-            setAgendSituacao(parseInt(modalEvent?._def?.extendedProps?.agend_serv_situ_id, 10));
-            setAgendData(modalEvent?._def?.extendedProps?.agend_data || '');
-            setAgendHorario(modalEvent?._def?.extendedProps?.agend_horario || '');
-            setAgendObserv(modalEvent?._def?.extendedProps?.agend_observ || '');
-            setServNome(modalEvent?._def?.extendedProps?.serv_nome || '');
-            setVeicPlaca(modalEvent?._def?.extendedProps?.veic_placa || '');
-            setVeicUsuId(modalEvent?._def?.extendedProps?.veic_usu_id || '');
+            setAgendSituacao(parseInt(modalEvent?._def?.extendedProps?.agend_serv_situ_id, 10)); // Define a situação do agendamento
+            setAgendData(modalEvent?._def?.extendedProps?.agend_data || ''); // Define a data do agendamento
+            setAgendHorario(modalEvent?._def?.extendedProps?.agend_horario || ''); // Define o horário do agendamento
+            setAgendObserv(modalEvent?._def?.extendedProps?.agend_observ || ''); // Define as observações
+            setServNome(modalEvent?._def?.extendedProps?.serv_nome || ''); // Define o nome do serviço
+            setVeicPlaca(modalEvent?._def?.extendedProps?.veic_placa || ''); // Define a placa do veículo
+            setVeicUsuId(modalEvent?._def?.extendedProps?.veic_usu_id || ''); // Define o ID do veículo do usuário
         }
-    }, [modalEvent]);
+    }, [modalEvent]); // Executa o efeito quando modalEvent muda
 
 // ----------------------------------------------------------------------------
 
@@ -55,32 +64,37 @@ if (!modalEvent?._def?.extendedProps) {
     //     }
     // }, [modalEvent]);
 
+    // Função para atualizar a situação do agendamento no estado
     const handleSituacaoChange = (e) => setAgendSituacao(parseInt(e.target.value, 10));
 
+    // Função para editar a situação do agendamento no servidor
     const editarSituacaoDoAgendamento = async () => {
         try {
+            // Envia uma requisição PATCH para atualizar a situação do agendamento
             await api.patch(`/agendamentos/situacao/${modalEvent?._def?.extendedProps?.agend_id}`, {
-                agend_serv_situ_id: agendSituacao,
+                agend_serv_situ_id: agendSituacao, // Novo ID da situação
             });
+            // Exibe um modal de sucesso ao concluir a atualização
             Swal.fire({
                 icon: 'success',
                 title: 'Agendamento atualizado!',
                 confirmButtonText: 'OK',
-                iconColor: "rgb(40, 167, 69)",
-                confirmButtonColor: "rgb(40, 167, 69)",
+                iconColor: "rgb(40, 167, 69)", // Cor do ícone
+                confirmButtonColor: "rgb(40, 167, 69)", // Cor do botão
             }).then((result) => {
-                if (result.isConfirmed) {
-                    onClose();
+                if (result.isConfirmed) { // Fecha o modal quando o usuário confirma
+                    onClose(); // Chama a função para fechar o modal
                 }
             });
         } catch (error) {
+            // Exibe um modal de erro caso a atualização falhe
             Swal.fire({
                 icon: 'error',
                 title: 'Erro',
                 text: 'Não foi possível atualizar o agendamento.',
                 confirmButtonText: 'OK',
-                iconColor: '#d33',
-                confirmButtonColor: '#d33',
+                iconColor: '#d33', // Cor do ícone de erro
+                confirmButtonColor: '#d33', // Cor do botão de erro
             });
         }
     };

@@ -1,15 +1,16 @@
-import React from 'react';
-import styles from './index.module.css';
+import React from 'react'; // Importa o React para criar componentes funcionais.
+import styles from './index.module.css'; // Importa o arquivo de estilos CSS para estilização do componente.
 
 export default function FormServicos({
-    selectedServico,
-    setSelectedServico,
-    isViewing,
-    isEditing,
-    handleSubmit,
-    categoriasServ
+    selectedServico, // Objeto com os dados do serviço selecionado.
+    setSelectedServico, // Função para atualizar o serviço selecionado.
+    isViewing, // Flag que indica se o formulário está no modo de visualização.
+    isEditing, // Flag que indica se o formulário está no modo de edição.
+    handleSubmit, // Função para manipular o envio do formulário.
+    categoriasServ // Lista de categorias de serviços disponíveis para seleção.
 }) {
 
+    // Define se os campos do formulário devem estar desabilitados.
     const isDisabled = isViewing || isEditing;
 
     return (
@@ -125,31 +126,6 @@ export default function FormServicos({
 
                 <div className={`${styles.grid_item} ${styles.grid_situacao}`}>
                     <label htmlFor="serv_situacao" className={styles.label_servicos}>Situação</label>
-                    {/* {isViewing ? (
-                       <input
-                       type="text"
-                       name="serv_situacao"
-                       id="serv_situacao"
-                       value={selectedServico ? (selectedServico.serv_situacao ? 'Ativo' : 'Inativo') : ''}
-                       onChange={(e) => setSelectedServico({ ...selectedServico, serv_situacao: e.target.value })}
-                       className={styles.input_servicos}
-                       disabled={isViewing}
-                   />
-                    ) : (
-                        <>
-                            <select
-                                id="veic_situacao"
-                                name="veic_situacao"
-                                value={selectedServico ? selectedServico.serv_situacao : ''}
-                                onChange={(e) => setSelectedServico({ ...selectedServico, serv_situacao: parseInt(e.target.value) })}
-                                className={`${styles.select_servicos} ${styles.input_situacao}`}
-                                required
-                            >
-                                <option value="1" className={styles.option} selected>Ativo</option>
-                                <option value="0" className={styles.option}>Inativo</option>
-                            </select>
-                        </>
-                    )} */}
                     {isEditing ? (
                         <select
                             id="serv_situacao"
