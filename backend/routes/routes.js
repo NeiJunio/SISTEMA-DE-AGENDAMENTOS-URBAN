@@ -24,6 +24,7 @@ router.post('/usuarios', usuariosController.cadastrarUsuarios); // Cadastra um n
 router.post('/usuarios/verificarCpf', usuariosController.verificarCpf); // Verifica se o CPF já está cadastrado
 router.post('/usuarios/verificarEmail', usuariosController.verificarEmail); // Verifica se o e-mail já está cadastrado
 router.post('/usuarios/cpf', usuariosController.listarUsuarioPorCpf); // Lista um usuário pelo CPF
+router.post('/usuarios/usu/cpf', usuariosController.listarUsuPorCpf); 
 router.patch('/usuarios/:usu_id', usuariosController.editarUsuarios); // Edita os dados de um usuário
 router.patch('/usuarios/ocultar/:usu_id', usuariosController.ocultarUsuario); // Oculta um usuário
 router.delete('/usuarios/:usu_id', usuariosController.excluirUsuarios); // Exclui um usuário

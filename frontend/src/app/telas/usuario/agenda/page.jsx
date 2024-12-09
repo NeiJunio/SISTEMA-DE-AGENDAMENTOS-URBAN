@@ -193,7 +193,7 @@ const FullCalendarGeral = () => {
             // Faz uma requisição para buscar o usuário pelo CPF.
             const response = await api.post('/usuarios/cpf', { usu_cpf: cpfUsuario });
 
-            if (response.data.dados && response.data.dados.usu_id) {
+            if (response.data.dados) {
                 setUserId(response.data.dados.usu_id); // Define o ID do usuário retornado pela API.
             } else {
                 Swal.fire({

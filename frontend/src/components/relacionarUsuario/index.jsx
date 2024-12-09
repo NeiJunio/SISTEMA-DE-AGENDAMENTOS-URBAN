@@ -13,24 +13,10 @@ export default function ModalRelacionarUsuario({ isOpen, onClose, veiculoId }) {
     const [ehProprietario, setEhProprietario] = useState(false);
     const [dataInicial, setDataInicial] = useState('');
 
-    // const buscarUsuarios = async (cpfDigitado) => {
-    //     if (cpfDigitado.trim().length >= 3) {
-    //         try {
-    //             const response = await api.post(`/usuarios/cpf`, { usu_cpf: cpfDigitado });
-    //             const dados = response.data.dados;
-    //             setUsuarios(Array.isArray(dados) ? dados : [dados]);
-    //         } catch (error) {
-    //             console.error("Erro ao buscar usuários:", error);
-    //             setUsuarios([]);
-    //         }
-    //     } else {
-    //         setUsuarios([]);
-    //     }
-    // };
     const buscarUsuarios = async (cpfDigitado) => {
         if (cpfDigitado.trim().length >= 3) {
             try {
-                const response = await api.post(`/usuarios/cpf`, { usu_cpf: cpfDigitado });
+                const response = await api.post(`/usuarios/usu/cpf`, { usu_cpf: cpfDigitado });
                 
                 // Define os usuários diretamente, pois a API já retorna um array
                 setUsuarios(response.data.dados || []); 
@@ -42,8 +28,6 @@ export default function ModalRelacionarUsuario({ isOpen, onClose, veiculoId }) {
             setUsuarios([]); // Limpa a lista se o CPF for muito curto
         }
     };
-    
-
 
     const handleBuscarClick = (e) => {
         e.preventDefault();

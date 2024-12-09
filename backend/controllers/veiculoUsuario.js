@@ -183,7 +183,8 @@ module.exports = {
     async editarVeiculoUsuario(request, response) {
         const { veic_usu_id } = request.params;
         const { data_inicial,
-            data_final, ehproprietario } = request.body;
+            data_final, 
+            ehproprietario } = request.body;
 
         try {
             const sql = `

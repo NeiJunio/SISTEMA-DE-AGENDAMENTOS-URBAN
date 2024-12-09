@@ -50,7 +50,8 @@ export default function ModalProprietarios({ isOpen, onClose, veiculoId }) {
         };
 
         try {
-            const response = await api.patch(`/veiculoUsuario/${editId}`, dados);
+            const response = await api.patch(`/veiculoUsuario/${editId}/data_final`, dados);
+
             Swal.fire({
                 title: 'Sucesso!',
                 text: response.data.mensagem,
@@ -65,6 +66,7 @@ export default function ModalProprietarios({ isOpen, onClose, veiculoId }) {
 
         } catch (error) {
             Swal.fire('Erro!', 'Não foi possível atualizar o proprietário.', 'error');
+            console.error(error.data.mensage);
         }
     };
 

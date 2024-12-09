@@ -119,8 +119,49 @@ module.exports = {
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Lista de usuários.',
+                // dados: usuarios,
+                dados: usuarios[0],
+                nItens
+            });
+        } catch (error) {
+            return response.status(500).json({
+                sucesso: false,
+                mensagem: 'Erro na requisição.',
+                dados: error.message
+            });
+        }
+    },
+
+    async listarUsuPorCpf(request, response) {
+        try {
+            const { usu_cpf } = request.body;
+
+            if (!usu_cpf) {
+                return response.status(400).json({
+                    sucesso: false,
+                    mensagem: 'CPF do usuário é obrigatório.',
+                });
+            }
+
+            const sql = `
+                SELECT usu_id,
+                       usu_nome,
+                       usu_cpf,
+                       usu_email
+                  FROM usuarios 
+                 WHERE usu_cpf LIKE ?
+            `;
+
+            const values = [`%${usu_cpf}%`];
+
+            const [usuarios] = await db.query(sql, values);
+            const nItens = usuarios.length;
+
+            return response.status(200).json({
+                sucesso: true,
+                mensagem: 'Lista de usuários.',
+                // dados: usuarios,
                 dados: usuarios,
-                // dados: usuarios[0],
                 nItens
             });
         } catch (error) {
