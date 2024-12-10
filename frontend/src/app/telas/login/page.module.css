@@ -312,12 +312,10 @@
 
     .formLogin {
         gap: 2rem;
-
     }
 }
 
 @media (max-width: 575px) {
-
     .logoImg {
         width: 70%;
         display: flex;
@@ -327,7 +325,6 @@
 
     .container {
         width: 95%;
-
         flex-direction: column;
         display: flex;
     }

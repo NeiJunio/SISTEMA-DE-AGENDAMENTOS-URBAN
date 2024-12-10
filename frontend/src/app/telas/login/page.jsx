@@ -1,10 +1,10 @@
 "use client";
 
+import { useRouter } from 'next/navigation'; // Importa o hook useRouter para manipulação de rotas
+import { useState } from "react"; // Importa o hook useState para gerenciar o estado da aplicação
 import styles from "./page.module.css"; // Importa o arquivo CSS para estilização da página
 import Image from "next/image"; // Importa o componente Image do Next.js para otimização de imagens
 import Link from "next/link"; // Importa o componente Link do Next.js para navegação entre páginas
-import { useRouter } from 'next/navigation'; // Importa o hook useRouter para manipulação de rotas
-import { useState } from "react"; // Importa o hook useState para gerenciar o estado da aplicação
 
 import api from "@/services/api"; // Importa a instância da API para realizar requisições
 

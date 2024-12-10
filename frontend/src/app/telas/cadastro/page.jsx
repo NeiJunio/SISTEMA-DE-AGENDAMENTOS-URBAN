@@ -174,7 +174,6 @@ export default function Cadastro() {
         return errorMessage; // Retorna a mensagem de erro ou null caso não haja erro
     };
 
-
     const handleChangeSenha = (event) => {
         const novaSenha = event.target.value; // Obtém o valor da nova senha digitada
         setSenha(novaSenha); // Atualiza o estado da senha
