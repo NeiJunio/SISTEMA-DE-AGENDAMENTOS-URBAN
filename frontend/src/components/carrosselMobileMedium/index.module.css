@@ -2,20 +2,6 @@
     margin: auto;
 }
 
-.employeeCard {
-    background-color: #fff;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-}
-
-.employeeImage {
-    max-width: 300px;
-    max-height: 300px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-}
-
 .customPrevArrow {
     position: absolute;
     top: 40%;
