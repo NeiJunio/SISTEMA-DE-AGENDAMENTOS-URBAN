@@ -1,45 +1,55 @@
-import React, { useState, useEffect } from "react";
-import styles from './index.module.css';
+import React, { useState } from 'react'; // Importa React e os hooks useState e useEffect
+import styles from './index.module.css'; // Importa os estilos CSS para o componente
 
-import api from "@/services/api";
+import api from '@/services/api'; // Importa o serviço de API para chamadas HTTP
 
-import InputMask from "react-input-mask";
-import Swal from "sweetalert2";
+import InputMask from "react-input-mask"; // Importa a biblioteca InputMask para formatar entradas de texto, como máscaras
+import Swal from 'sweetalert2'; // Importa a biblioteca para exibir modais de alertas e confirmações
 
 export default function ModalRelacionarUsuario({ isOpen, onClose, veiculoId }) {
-    const [cpf, setCpf] = useState('');
-    const [usuarios, setUsuarios] = useState([]);
-    const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
-    const [ehProprietario, setEhProprietario] = useState(false);
-    const [dataInicial, setDataInicial] = useState('');
+    const [cpf, setCpf] = useState(''); // Estado para armazenar o CPF digitado
+    const [usuarios, setUsuarios] = useState([]); // Estado para armazenar a lista de usuários buscados
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState(null); // Estado para armazenar o ID do usuário selecionado
+    const [ehProprietario, setEhProprietario] = useState(false); // Estado para indicar se o usuário selecionado é proprietário
+    const [dataInicial, setDataInicial] = useState(''); // Estado para armazenar a data inicial do relacionamento
 
+    // Função para buscar usuários com base no CPF digitado
     const buscarUsuarios = async (cpfDigitado) => {
+        // Verifica se o CPF digitado possui ao menos 3 caracteres
         if (cpfDigitado.trim().length >= 3) {
             try {
+                // Envia uma requisição para buscar usuários pelo CPF
                 const response = await api.post(`/usuarios/usu/cpf`, { usu_cpf: cpfDigitado });
-                
-                // Define os usuários diretamente, pois a API já retorna um array
-                setUsuarios(response.data.dados || []); 
+
+                // Atualiza o estado com os dados retornados pela API
+                setUsuarios(response.data.dados || []);
             } catch (error) {
+                // Loga o erro no console e limpa a lista de usuários
                 console.error("Erro ao buscar usuários:", error);
-                setUsuarios([]); // Garante que a lista estará vazia em caso de erro
+                setUsuarios([]);
             }
         } else {
-            setUsuarios([]); // Limpa a lista se o CPF for muito curto
+            // Limpa a lista de usuários se o CPF for muito curto
+            setUsuarios([]);
         }
     };
 
+    // Função chamada ao clicar no botão de buscar
     const handleBuscarClick = (e) => {
-        e.preventDefault();
-        buscarUsuarios(cpf);
+        e.preventDefault(); // Previne o comportamento padrão do botão
+        buscarUsuarios(cpf); // Chama a função de busca
     };
 
+    // Função para selecionar um usuário da lista
     const handleSelectUsuario = (usu_id) => {
-        setUsuarioSelecionado(usu_id);
+        setUsuarioSelecionado(usu_id); // Atualiza o ID do usuário selecionado
     };
 
+    // Função para salvar o relacionamento entre veículo e usuário
     const handleSalvar = async () => {
+        // Verifica se o usuário e a data inicial foram selecionados
         if (!usuarioSelecionado || !dataInicial) {
+            // Exibe um alerta se alguma informação estiver faltando
             Swal.fire({
                 title: 'Aviso',
                 text: 'Selecione uma data!',
@@ -50,15 +60,19 @@ export default function ModalRelacionarUsuario({ isOpen, onClose, veiculoId }) {
             return;
         }
 
+        // Dados a serem enviados para a API
         const dados = {
-            veic_id: veiculoId,
-            usu_id: usuarioSelecionado,
-            ehproprietario: ehProprietario ? 1 : 0,
-            data_inicial: dataInicial
+            veic_id: veiculoId, // ID do veículo
+            usu_id: usuarioSelecionado, // ID do usuário selecionado
+            ehproprietario: ehProprietario ? 1 : 0, // Indica se é proprietário (1 ou 0)
+            data_inicial: dataInicial // Data inicial do relacionamento
         };
 
         try {
+            // Envia os dados para a API
             await api.post(`/veiculoUsuario`, dados);
+
+            // Exibe mensagem de sucesso
             Swal.fire({
                 title: 'Sucesso!',
                 text: 'Relacionamento realizado com sucesso!',
@@ -66,9 +80,12 @@ export default function ModalRelacionarUsuario({ isOpen, onClose, veiculoId }) {
                 iconColor: "rgb(40, 167, 69)",
                 confirmButtonColor: "rgb(40, 167, 69)",
             });
+
+            // Fecha o modal e limpa os campos
             onClose();
             limparCampos();
         } catch (error) {
+            // Loga o erro no console e exibe uma mensagem de erro
             console.error("Erro ao associar usuário:", error.response);
             Swal.fire({
                 title: 'Erro!',
@@ -80,14 +97,16 @@ export default function ModalRelacionarUsuario({ isOpen, onClose, veiculoId }) {
         }
     };
 
+    // Função para limpar todos os campos do formulário
     const limparCampos = () => {
-        setCpf('');
-        setUsuarios([]);
-        setUsuarioSelecionado(null);
-        setEhProprietario(false);
-        setDataInicial('');
+        setCpf(''); // Reseta o CPF
+        setUsuarios([]); // Limpa a lista de usuários
+        setUsuarioSelecionado(null); // Reseta o usuário selecionado
+        setEhProprietario(false); // Reseta o estado de proprietário
+        setDataInicial(''); // Reseta a data inicial
     };
 
+    // Retorna null se o modal não estiver aberto
     if (!isOpen) return null;
 
     return (

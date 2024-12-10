@@ -31,6 +31,22 @@
     font-weight: 400;
 }
 
+.inputCategoria {
+    width: 100%;
+    margin: 10px 0 5px;
+    padding: 10px;
+    border: 3px solid #8d8c8c;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: #f9f9f9;
+}
+
+.inputCategoria:focus {
+    border-color: #ff9d00;
+    outline: none;
+}
+
 .buttonGroup {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -63,20 +79,4 @@
 
 .btnCancel:hover {
     background-color: #c82333;
-}
-
-.inputCategoria {
-    width: 100%;
-    margin: 10px 0 5px;
-    padding: 10px;
-    border: 3px solid #8d8c8c;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 18px;
-    background-color: #f9f9f9;
-}
-
-.inputCategoria:focus {
-    border-color: #ff9d00;
-    outline: none;
 }

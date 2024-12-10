@@ -105,7 +105,6 @@
     font-size: 0.9em;
 }
 
-
 /* Estilo da mensagem de erro */
 .error_message {
     color: #d9534f;
@@ -205,10 +204,5 @@
 
 .success {
     color: green;
-    font-size: 0.9em;
-}
-
-.loading {
-    color: blue;
     font-size: 0.9em;
 }

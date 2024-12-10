@@ -104,7 +104,6 @@ const CalendarEventDetailsModal = ({
             <div className={styles.modalContent}>
                 <h2>Detalhes do Agendamento {modalEvent?._def?.extendedProps?.agend_id}</h2>
                 <div className={styles.detailsContainer}>
-
                     <div className={styles.detailsItem}>
                         <span className={styles.detailsLabel}>Data:</span>
                         <span>

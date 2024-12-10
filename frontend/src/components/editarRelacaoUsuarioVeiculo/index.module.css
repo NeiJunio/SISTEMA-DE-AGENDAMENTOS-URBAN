@@ -22,11 +22,6 @@
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.modalContent_enterActive {
-    transform: scale(1);
-    opacity: 1;
-}
-
 .modalTitle {
     font-size: 24px;
     font-weight: bold;

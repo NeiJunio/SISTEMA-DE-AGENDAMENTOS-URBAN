@@ -22,16 +22,6 @@
     transition: transform 0.3s ease;
 }
 
-.modalContent.enter {
-    transform: scale(0.9);
-    opacity: 0;
-}
-
-.modalContent.enter-active {
-    transform: scale(1);
-    opacity: 1;
-}
-
 .modalTitle {
     font-size: 26px;
     font-weight: bold;
@@ -42,6 +32,29 @@
 
 .formGroup {
     margin-bottom: 20px;
+}
+
+.cpfContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.btnBuscar {
+    background-color: #ff9d00;
+    margin-top: 5px;
+    color: white;
+    padding: 10px 15px;
+    height: 100%;
+    border: 2px solid #f39200;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnBuscar:hover {
+    background-color: #e08a00;
 }
 
 .inputCpf {
@@ -131,6 +144,33 @@
     border-color: #ff9d00;
 }
 
+.checkboxDateContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.dateContainer {
+    display: flex;
+    align-items: center;
+}
+
+.inputDate {
+    margin-left: 10px;
+    padding: 10px;
+    border: 2px solid #8d8c8c;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.inputDate:focus {
+    border-color: #ff9d00;
+    outline: none;
+}
+
 .buttonGroup {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -165,54 +205,4 @@
 
 .btnSave:hover {
     background-color: #45a049;
-}
-
-.checkboxDateContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.dateContainer {
-    display: flex;
-    align-items: center;
-}
-
-.inputDate {
-    margin-left: 10px;
-    padding: 10px;
-    border: 2px solid #8d8c8c;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    transition: border-color 0.3s ease;
-}
-
-.inputDate:focus {
-    border-color: #ff9d00;
-    outline: none;
-}
-
-.cpfContainer {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.btnBuscar {
-    background-color: #ff9d00;
-    margin-top: 5px;
-    color: white;
-    padding: 10px 15px;
-    height: 100%;
-    border: 2px solid #f39200;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btnBuscar:hover {
-    background-color: #e08a00;
 }
