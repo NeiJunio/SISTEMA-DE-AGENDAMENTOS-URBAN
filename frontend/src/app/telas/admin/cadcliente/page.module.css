@@ -175,20 +175,6 @@
     background-color: #e38f08;
 }
 
-.sortIcon {
-    margin-left: 5px;
-    font-size: 0.8em;
-    vertical-align: middle;
-}
-
-.asc {
-    color: #007bff;
-}
-
-.desc {
-    color: #dc3545;
-}
-
 .newButton {
     flex: 1;
     max-width: 20%;
@@ -384,19 +370,16 @@
 
     .id,
     .sexo,
-    .acao {
+    .acao,
+    .dataNasc,
+    .cpf,
+    .telefone {
         width: 20%;
     }
 
     .nome,
     .email {
         width: 40%;
-    }
-
-    .dataNasc,
-    .cpf,
-    .telefone {
-        width: 20%;
     }
 }
 
@@ -453,7 +436,6 @@
     .button_exit {
         grid-area: 1 / 1 / 2 / 1;
     }
-
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -463,7 +445,8 @@
     }
 
     .grid_codigo,
-    .grid_situacao {
+    .grid_situacao,
+    .grid_telefone {
         grid-column: span 4;
     }
 
@@ -474,14 +457,7 @@
         grid-column: span 6;
     }
 
-    .grid_telefone {
-        grid-column: span 4;
-    }
-
-    .grid_nome {
-        grid-column: span 8;
-    }
-
+    .grid_nome,
     .grid_email {
         grid-column: span 8;
     }

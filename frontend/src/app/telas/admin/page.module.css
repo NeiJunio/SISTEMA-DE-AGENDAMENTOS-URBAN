@@ -253,53 +253,6 @@
     display: contents;
 }
 
-.grid_item {
-    display: flex;
-    flex-direction: column;
-}
-
-.grid_item_small {
-    grid-column: span 2;
-}
-
-.grid_item_medium {
-    grid-column: span 4;
-}
-
-.grid_item_large {
-    grid-column: span 6;
-}
-
-.grid_item_observacoes {
-    grid-column: span 10;
-}
-
-.grid_item_descricao {
-    grid-column: span 8;
-}
-
-
-.input_small {
-    flex: 1;
-}
-
-.input_small_select {
-    flex: 1;
-
-}
-
-.input_medium_select {
-    flex: 2;
-}
-
-.input_large {
-    flex: 4;
-}
-
-.input_medium {
-    flex: 2;
-}
-
 .input_wrapper {
     display: grid;
     margin-right: 20px;
