@@ -12,7 +12,6 @@ export default function Servico2() {
                     height={250}
                     unoptimized={true}
                 />
-
             </div>
 
             <hr className={styles.hr}></hr>
