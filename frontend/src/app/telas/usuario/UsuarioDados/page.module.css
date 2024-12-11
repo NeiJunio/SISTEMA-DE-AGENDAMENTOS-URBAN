@@ -128,6 +128,10 @@
     outline: none;
 }
 
+.input_medium_select {
+    flex: 2;
+}
+
 .mdEye {
     width: 24px;
     height: 24px;
