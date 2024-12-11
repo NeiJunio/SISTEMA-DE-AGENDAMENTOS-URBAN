@@ -182,14 +182,6 @@
     vertical-align: middle;
 }
 
-.asc {
-    color: #007bff;
-}
-
-.desc {
-    color: #dc3545;
-}
-
 .corSituacao {
     padding: 6px 6px;
     min-width: 132px;
@@ -287,7 +279,8 @@
     z-index: 10;
 }
 
-.id {
+.id,
+.acao {
     width: 7%;
 }
 
@@ -298,7 +291,6 @@
 
 .servico {
     width: auto;
-
 }
 
 .cliente {
@@ -317,10 +309,6 @@
 
 .observ {
     width: 30%;
-}
-
-.acao {
-    width: 7%;
 }
 
 .tableBody {
@@ -480,7 +468,6 @@
     .button_exit {
         grid-area: 1 / 1 / 2 / 1;
     }
-
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
