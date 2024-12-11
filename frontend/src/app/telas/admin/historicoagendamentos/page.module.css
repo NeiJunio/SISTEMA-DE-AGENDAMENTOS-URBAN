@@ -175,6 +175,20 @@
     background-color: #e38f08;
 }
 
+.sortIcon {
+    margin-left: 5px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.asc {
+    color: #007bff;
+}
+
+.desc {
+    color: #dc3545;
+}
+
 .corSituacao {
     padding: 6px 6px;
     min-width: 132px;
@@ -272,8 +286,7 @@
     z-index: 10;
 }
 
-.id,
-.acao {
+.id {
     width: 7%;
 }
 
@@ -284,6 +297,7 @@
 
 .servico {
     width: auto;
+
 }
 
 .cliente {
@@ -302,6 +316,10 @@
 
 .observ {
     width: 30%;
+}
+
+.acao {
+    width: 7%;
 }
 
 .tableBody {
@@ -371,6 +389,21 @@
     margin: 0 2rem;
 }
 
+.divblur {
+    width: 100%;
+    height: 100vh;
+    inset: 0;
+    position: fixed;
+    background-color: #333;
+    backdrop-filter: blur(4);
+}
+
+.content {
+    width: 50%;
+    height: 50%;
+    background-color: yellowgreen;
+}
+
 /*---------------------*/
 
 /* Media Queries */
@@ -378,16 +411,19 @@
 
     .id,
     .sexo,
-    .acao,
-    .dataNasc,
-    .cpf,
-    .telefone {
+    .acao {
         width: 20%;
     }
 
     .nome,
     .email {
         width: 40%;
+    }
+
+    .dataNasc,
+    .cpf,
+    .telefone {
+        width: 20%;
     }
 }
 
@@ -405,10 +441,6 @@
         grid-column: span 3;
     }
 
-    .grid_telefone {
-        grid-column: span 4;
-    }
-
     .grid_cpf,
     .grid_data,
     .grid_sexo,
@@ -416,12 +448,16 @@
         grid-column: span 6;
     }
 
-    .grid_email {
-        grid-column: span 8;
+    .grid_telefone {
+        grid-column: span 4;
     }
 
     .grid_nome {
         grid-column: span 9;
+    }
+
+    .grid_email {
+        grid-column: span 8;
     }
 
     .grid_observacoes {
@@ -444,6 +480,7 @@
     .button_exit {
         grid-area: 1 / 1 / 2 / 1;
     }
+
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -453,8 +490,7 @@
     }
 
     .grid_codigo,
-    .grid_situacao,
-    .grid_telefone {
+    .grid_situacao {
         grid-column: span 4;
     }
 
@@ -465,7 +501,14 @@
         grid-column: span 6;
     }
 
-    .grid_nome,
+    .grid_telefone {
+        grid-column: span 4;
+    }
+
+    .grid_nome {
+        grid-column: span 8;
+    }
+
     .grid_email {
         grid-column: span 8;
     }

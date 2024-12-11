@@ -242,8 +242,24 @@
     transition: background-color 0.3s;
 }
 
+
 .tableHeader:hover {
     background-color: #e38f08;
+}
+
+
+.sortIcon {
+    margin-left: 5px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.asc {
+    color: #007bff;
+}
+
+.desc {
+    color: #dc3545;
 }
 
 .resultTableContainer {
@@ -396,16 +412,19 @@
 
     .id,
     .sexo,
-    .acao,
-    .dataNasc,
-    .cpf,
-    .telefone {
+    .acao {
         width: 20%;
     }
 
     .nome,
     .email {
         width: 40%;
+    }
+
+    .dataNasc,
+    .cpf,
+    .telefone {
+        width: 20%;
     }
 }
 
@@ -423,10 +442,6 @@
         grid-column: span 3;
     }
 
-    .grid_telefone {
-        grid-column: span 4;
-    }
-
     .grid_cpf,
     .grid_data,
     .grid_sexo,
@@ -434,12 +449,16 @@
         grid-column: span 6;
     }
 
-    .grid_email {
-        grid-column: span 8;
+    .grid_telefone {
+        grid-column: span 4;
     }
 
     .grid_nome {
         grid-column: span 9;
+    }
+
+    .grid_email {
+        grid-column: span 8;
     }
 
     .grid_observacoes {
@@ -458,6 +477,7 @@
     .button_cancel {
         grid-area: 1 / 4 / 2 / 5;
     }
+
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -467,8 +487,7 @@
     }
 
     .grid_codigo,
-    .grid_situacao,
-    .grid_telefone {
+    .grid_situacao {
         grid-column: span 4;
     }
 
@@ -479,7 +498,14 @@
         grid-column: span 6;
     }
 
-    .grid_nome,
+    .grid_telefone {
+        grid-column: span 4;
+    }
+
+    .grid_nome {
+        grid-column: span 8;
+    }
+
     .grid_email {
         grid-column: span 8;
     }
@@ -549,4 +575,5 @@
     .button_cancel {
         grid-area: 1 / 1 / 2 / 2;
     }
+
 }

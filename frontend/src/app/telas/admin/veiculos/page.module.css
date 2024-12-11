@@ -242,6 +242,20 @@
     background-color: #e38f08;
 }
 
+.sortIcon {
+    margin-left: 5px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.asc {
+    color: #007bff;
+}
+
+.desc {
+    color: #dc3545;
+}
+
 .errorMessage {
     color: red;
     font-size: 0.875rem;
